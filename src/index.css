@@ -1,116 +1,29 @@
+/* Only import Tailwind and define the base body style for now */
 @import "tailwindcss";
-@import url('https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;500;600;700&family=Inter:wght@300;400;500;600;700&display=swap');
-
-/* Define theme customizations */
-@theme {
-  --color-primary-50: #faf5ff;
-  --color-primary-100: #f3e8ff;
-  --color-primary-200: #e9d5ff;
-  --color-primary-300: #d8b4fe;
-  --color-primary-400: #c084fc;
-  --color-primary-500: #a855f7;
-  --color-primary-600: #9333ea;
-  --color-primary-700: #7e22ce;
-  --color-primary-800: #6b21a8;
-  --color-primary-900: #581c87;
-
-  --color-gold-50: #fffbeb;
-  --color-gold-100: #fef3c7;
-  --color-gold-200: #fde68a;
-  --color-gold-300: #fcd34d;
-  --color-gold-400: #fbbf24;
-  --color-gold-500: #f59e0b;
-  --color-gold-600: #d97706;
-  --color-gold-700: #b45309;
-  --color-gold-800: #92400e;
-  --color-gold-900: #78350f;
-
-  --font-serif: 'Playfair Display', theme('fontFamily.serif');
-  --font-sans: 'Inter', theme('fontFamily.sans');
-
-  --animation-glow: glow 2s ease-in-out infinite alternate;
-  --animation-float: float 3s ease-in-out infinite;
-  --animation-shimmer: shimmer 2s linear infinite;
-
-  --keyframes-glow: {
-    '0%': { boxShadow: '0 0 5px rgba(168, 85, 247, 0.5), 0 0 10px rgba(168, 85, 247, 0.3)' },
-    '100%': { boxShadow: '0 0 10px rgba(168, 85, 247, 0.8), 0 0 20px rgba(168, 85, 247, 0.5)' },
-  };
-  --keyframes-float: {
-    '0%, 100%': { transform: 'translateY(0px)' },
-    '50%': { transform: 'translateY(-10px)' },
-  };
-  --keyframes-shimmer: {
-    '0%': { backgroundPosition: '-1000px 0' },
-    '100%': { backgroundPosition: '1000px 0' },
-  };
-}
 
 @layer base {
   body {
     @apply bg-gradient-to-br from-slate-900 via-purple-900 to-slate-900 text-gray-100 min-h-screen;
-    font-family: theme('fontFamily.sans'); /* Use theme() to reference */
+    /* Font family will fallback to browser default temporarily */
   }
 }
 
-@layer components {
-  .glass-card {
-    @apply bg-white/5 backdrop-blur-lg border border-white/10 rounded-xl shadow-2xl;
-  }
-
-  .btn-primary {
-    @apply bg-gradient-to-r from-purple-600 to-pink-600 hover:from-purple-700 hover:to-pink-700 text-white font-semibold py-3 px-6 rounded-lg transition-all duration-300 shadow-lg hover:shadow-xl transform hover:-translate-y-0.5;
-  }
-
-  .btn-secondary {
-    @apply bg-white/10 hover:bg-white/20 text-white font-semibold py-3 px-6 rounded-lg transition-all duration-300 border border-white/20;
-  }
-
-  .input-field {
-    @apply w-full bg-white/5 border border-white/10 rounded-lg px-4 py-3 text-white placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-purple-500 focus:border-transparent transition-all;
-  }
-
-  .chapter-card {
-    @apply glass-card p-6 hover:bg-white/10 transition-all duration-300 cursor-pointer transform hover:scale-105;
-  }
-
-  .progress-bar {
-    @apply h-2 bg-gradient-to-r from-purple-500 to-pink-500 rounded-full transition-all duration-500;
-  }
-
-  /* Apply animations using theme() */
-  .crystal-glow {
-     animation: theme('animation.glow');
-  }
-
-  .floating-element {
-     animation: theme('animation.float');
-  }
-
-  .Gem-glow { /* Assuming you meant this class */
-     animation: theme('animation.glow');
-  }
-}
-
-/* Custom scrollbar - Keep as is */
+/* Custom scrollbar styles */
 ::-webkit-scrollbar {
   width: 10px;
 }
-
 ::-webkit-scrollbar-track {
   background: rgba(0, 0, 0, 0.3);
 }
-
 ::-webkit-scrollbar-thumb {
   background: linear-gradient(to bottom, #a855f7, #ec4899);
   border-radius: 5px;
 }
-
 ::-webkit-scrollbar-thumb:hover {
   background: linear-gradient(to bottom, #9333ea, #db2777);
 }
 
-/* Smooth transitions - Keep as is */
+/* Smooth transitions */
 * {
   transition-property: background-color, border-color, color, fill, stroke;
   transition-timing-function: cubic-bezier(0.4, 0, 0.2, 1);
