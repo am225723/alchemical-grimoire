@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
-import { BookOpen, Sparkles, TrendingUp, Calendar, Gem, Mail } from 'lucide-react';
+import { BookOpen, Sparkles, TrendingUp, Calendar, Gem, Mail } from 'lucide-react'; // Changed Crystal to Gem
 import { useApp } from '../context/AppContext';
 import { motion } from 'framer-motion';
 
@@ -115,7 +115,7 @@ const Dashboard: React.FC = () => {
             <Gem className="w-8 h-8 text-gold-400 Gem-glow" />
             <span className="text-3xl font-bold text-white">{user?.insightCrystals || 0}</span>
           </div>
-          <h3 className="text-gray-300 font-semibold">Insight Gems</h3>
+          <h3 className="text-gray-300 font-semibold">Insight Crystals</h3> {/* Corrected name */}
         </motion.div>
 
         <motion.div
