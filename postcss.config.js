@@ -3,7 +3,7 @@ import autoprefixer from 'autoprefixer';
 
 export default {
   plugins: [
-    tailwindcss,
-    autoprefixer,
+    tailwindcss, // Handles Tailwind processing
+    autoprefixer, // Still useful for vendor prefixes
   ],
 };
