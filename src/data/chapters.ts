@@ -1,4 +1,4 @@
-import type { Chapter } from '../types';
+import type { Chapter } from '../types'; // Added 'type'
 
 export const chapters: Chapter[] = [
   {
