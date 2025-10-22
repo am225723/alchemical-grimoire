@@ -1,6 +1,6 @@
-import { createContext, useContext, useState } from 'react';
+import { createContext, useContext, useState, useEffect } from 'react';
 import type { ReactNode } from 'react';
-import type { User, JournalEntry, TriggerLog, TimeCapsule, DreamLog, Archetype, CommunityInsight } from '@/types';
+import type { User, JournalEntry, TriggerLog, TimeCapsule, DreamLog, Archetype, CommunityInsight } from '../types';
 
 
 interface AppContextType {
