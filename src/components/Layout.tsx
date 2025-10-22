@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { Link, useLocation } from 'react-router-dom';
-import { BookOpen, Home, Compass, Sparkles, Users, Menu, X, Crystal } from 'lucide-react';
+import { BookOpen, Home, Compass, Sparkles, Users, Menu, X, Gem } from 'lucide-react';
 import { useApp } from '../context/AppContext';
 
 interface LayoutProps {
@@ -40,7 +40,7 @@ const Layout: React.FC<LayoutProps> = ({ children }) => {
           {/* Logo */}
           <div className="flex items-center justify-between mb-8">
             <Link to="/" className="flex items-center space-x-2">
-              <Crystal className="w-8 h-8 text-purple-400 crystal-glow" />
+              <Gem className="w-8 h-8 text-purple-400 Gem-glow" />
               <span className="text-xl font-serif font-bold bg-gradient-to-r from-purple-400 to-pink-400 bg-clip-text text-transparent">
                 Alchemical Grimoire
               </span>
@@ -59,9 +59,9 @@ const Layout: React.FC<LayoutProps> = ({ children }) => {
               <p className="text-sm text-gray-400 mb-1">Welcome back,</p>
               <p className="font-semibold text-white">{user.name}</p>
               <div className="mt-3 flex items-center space-x-2">
-                <Crystal className="w-4 h-4 text-gold-400" />
+                <Gem className="w-4 h-4 text-gold-400" />
                 <span className="text-sm text-gold-400 font-semibold">
-                  {user.insightCrystals} Insight Crystals
+                  {user.insightGems} Insight Gems
                 </span>
               </div>
             </div>
@@ -111,13 +111,13 @@ const Layout: React.FC<LayoutProps> = ({ children }) => {
               <Menu className="w-6 h-6" />
             </button>
             <div className="flex items-center space-x-2">
-              <Crystal className="w-6 h-6 text-purple-400" />
+              <Gem className="w-6 h-6 text-purple-400" />
               <span className="font-serif font-bold text-white">Alchemical Grimoire</span>
             </div>
             {user && (
               <div className="flex items-center space-x-1">
-                <Crystal className="w-4 h-4 text-gold-400" />
-                <span className="text-sm text-gold-400 font-semibold">{user.insightCrystals}</span>
+                <Gem className="w-4 h-4 text-gold-400" />
+                <span className="text-sm text-gold-400 font-semibold">{user.insightGems}</span>
               </div>
             )}
           </div>
