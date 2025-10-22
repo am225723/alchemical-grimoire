@@ -1,11 +1,18 @@
+import preset from '@tailwindcss/v4-preset';
+
 /** @type {import('tailwindcss').Config} */
 export default {
+  presets: [
+    preset,
+  ],
   content: [
     "./index.html",
     "./src/**/*.{js,ts,jsx,tsx}",
   ],
   theme: {
     extend: {
+      // Your existing extensions are fine here.
+      // The preset will provide the base colors (slate, purple, etc.).
       colors: {
         primary: {
           50: '#faf5ff',
