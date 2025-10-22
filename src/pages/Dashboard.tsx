@@ -32,7 +32,7 @@ const Dashboard: React.FC = () => {
         },
         journalEntries: [],
         triggers: [],
-        insightGems: 0,
+        insightCrystals: 0,
         completedActivities: [],
       };
       setUser(newUser);
@@ -113,7 +113,7 @@ const Dashboard: React.FC = () => {
         >
           <div className="flex items-center justify-between mb-4">
             <Gem className="w-8 h-8 text-gold-400 Gem-glow" />
-            <span className="text-3xl font-bold text-white">{user?.insightGems || 0}</span>
+            <span className="text-3xl font-bold text-white">{user?.insightCrystals || 0}</span>
           </div>
           <h3 className="text-gray-300 font-semibold">Insight Gems</h3>
         </motion.div>
