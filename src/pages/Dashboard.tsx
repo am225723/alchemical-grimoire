@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
-import { BookOpen, Sparkles, TrendingUp, Calendar, Crystal, Mail } from 'lucide-react';
+import { BookOpen, Sparkles, TrendingUp, Calendar, Gem, Mail } from 'lucide-react';
 import { useApp } from '../context/AppContext';
 import { motion } from 'framer-motion';
 
@@ -32,7 +32,7 @@ const Dashboard: React.FC = () => {
         },
         journalEntries: [],
         triggers: [],
-        insightCrystals: 0,
+        insightGems: 0,
         completedActivities: [],
       };
       setUser(newUser);
@@ -112,10 +112,10 @@ const Dashboard: React.FC = () => {
           className="glass-card p-6"
         >
           <div className="flex items-center justify-between mb-4">
-            <Crystal className="w-8 h-8 text-gold-400 crystal-glow" />
-            <span className="text-3xl font-bold text-white">{user?.insightCrystals || 0}</span>
+            <Gem className="w-8 h-8 text-gold-400 Gem-glow" />
+            <span className="text-3xl font-bold text-white">{user?.insightGems || 0}</span>
           </div>
-          <h3 className="text-gray-300 font-semibold">Insight Crystals</h3>
+          <h3 className="text-gray-300 font-semibold">Insight Gems</h3>
         </motion.div>
 
         <motion.div
@@ -172,7 +172,7 @@ const Dashboard: React.FC = () => {
                 transition={{ delay: index * 0.05 }}
                 className={`w-12 h-12 rounded-full flex items-center justify-center transition-all duration-500 ${
                   stone.completed
-                    ? 'bg-gradient-to-br from-purple-500 to-pink-500 shadow-lg shadow-purple-500/50 crystal-glow'
+                    ? 'bg-gradient-to-br from-purple-500 to-pink-500 shadow-lg shadow-purple-500/50 Gem-glow'
                     : 'bg-gray-700/50 border border-gray-600'
                 }`}
               >
