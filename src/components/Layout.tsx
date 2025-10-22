@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { Link, useLocation } from 'react-router-dom';
-import { BookOpen, Home, Compass, Sparkles, Users, Menu, X, Gem } from 'lucide-react';
+import { BookOpen, Home, Compass, Sparkles, Users, Menu, X, Gem } from 'lucide-react'; // Changed Crystal to Gem
 import { useApp } from '../context/AppContext';
 
 interface LayoutProps {
@@ -61,7 +61,7 @@ const Layout: React.FC<LayoutProps> = ({ children }) => {
               <div className="mt-3 flex items-center space-x-2">
                 <Gem className="w-4 h-4 text-gold-400" />
                 <span className="text-sm text-gold-400 font-semibold">
-                  {user.insightCrystals} Insight Gems
+                  {user.insightCrystals} Insight Crystals {/* Corrected name */}
                 </span>
               </div>
             </div>
@@ -117,7 +117,7 @@ const Layout: React.FC<LayoutProps> = ({ children }) => {
             {user && (
               <div className="flex items-center space-x-1">
                 <Gem className="w-4 h-4 text-gold-400" />
-                <span className="text-sm text-gold-400 font-semibold">{user.insightCrystals}</span>
+                <span className="text-sm text-gold-400 font-semibold">{user.insightCrystals}</span> {/* Corrected name */}
               </div>
             )}
           </div>
