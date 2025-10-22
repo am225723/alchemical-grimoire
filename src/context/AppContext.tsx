@@ -1,5 +1,7 @@
-import React, { createContext, useContext, useState, useEffect, ReactNode } from 'react';
-import { User, JournalEntry, TriggerLog, TimeCapsule, DreamLog, Archetype, CommunityInsight } from '../types';
+import { createContext, useContext, useState } from 'react';
+import type { ReactNode } from 'react';
+import type { User, JournalEntry, TriggerLog, TimeCapsule, DreamLog, Archetype, CommunityInsight } from '@/types';
+
 
 interface AppContextType {
   user: User | null;
