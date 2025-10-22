@@ -61,7 +61,7 @@ const Layout: React.FC<LayoutProps> = ({ children }) => {
               <div className="mt-3 flex items-center space-x-2">
                 <Gem className="w-4 h-4 text-gold-400" />
                 <span className="text-sm text-gold-400 font-semibold">
-                  {user.insightGems} Insight Gems
+                  {user.insightCrystals} Insight Gems
                 </span>
               </div>
             </div>
@@ -117,7 +117,7 @@ const Layout: React.FC<LayoutProps> = ({ children }) => {
             {user && (
               <div className="flex items-center space-x-1">
                 <Gem className="w-4 h-4 text-gold-400" />
-                <span className="text-sm text-gold-400 font-semibold">{user.insightGems}</span>
+                <span className="text-sm text-gold-400 font-semibold">{user.insightCrystals}</span>
               </div>
             )}
           </div>
