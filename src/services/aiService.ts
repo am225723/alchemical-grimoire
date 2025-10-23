@@ -56,7 +56,7 @@ export interface TransformationProgress {
 
 // AI Service Class
 class AIService {
-  private baseUrl = process.env.REACT_APP_AI_API_URL || '/api/ai';
+  private baseUrl = import.meta.env.VITE_AI_API_URL || '/api/ai';
   
   // Shadow Dialogue Service
   async generateShadowResponse(
