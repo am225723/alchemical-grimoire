@@ -1,6 +1,6 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
-import { BookOpen, Sparkles, TrendingUp, Compass, Wrench, Users, ArrowRight, Star, Brain, Heart, Eye } from 'lucide-react';
+import { BookOpen, Sparkles, Compass, Wrench, Users, ArrowRight, Star, Brain, Heart, Eye } from 'lucide-react';
 import { motion } from 'framer-motion';
 import { chapters } from '../data/chapters';
 
