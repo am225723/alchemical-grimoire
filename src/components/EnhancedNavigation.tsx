@@ -161,10 +161,10 @@ const EnhancedNavigation: React.FC = () => {
       <div key={item.name}>
         <Component
           {...props}
-          className={`w-full flex items-center space-x-3 px-4 py-3 rounded-lg transition-all group text-left ${
+          className={`w-full flex items-center space-x-3 px-4 py-3 rounded-lg transition-all group text-left relative overflow-hidden ${
             isActive
-              ? 'bg-gradient-to-r from-purple-600/50 to-pink-600/50 text-white'
-              : 'text-gray-300 hover:bg-white/5 hover:text-white'
+              ? 'bg-gradient-to-r from-purple-600/60 to-pink-600/60 text-white shadow-glow-sm'
+              : 'text-gray-300 hover:bg-white/10 hover:text-white hover:shadow-glow-sm'
           } ${level > 0 ? 'ml-6' : ''}`}
         >
           <item.icon className={`w-5 h-5 flex-shrink-0 ${isActive ? 'text-white' : 'text-gray-400 group-hover:text-white'}`} />
@@ -210,16 +210,22 @@ const EnhancedNavigation: React.FC = () => {
 
       {/* Sidebar */}
       <aside
-        className={`fixed top-0 left-0 z-50 h-full w-80 glass-card border-r border-white/10 transform transition-transform duration-300 ease-in-out ${
+        className={`fixed top-0 left-0 z-50 h-full w-80 glass-card-glow border-r border-purple-500/30 transform transition-transform duration-300 ease-in-out ${
           sidebarOpen ? 'translate-x-0' : '-translate-x-full'
-        } lg:translate-x-0`}
+        } lg:translate-x-0 shadow-glow`}
       >
-        <div className="flex flex-col h-full p-6">
+        <div className="flex flex-col h-full p-6 relative">
+          {/* Decorative gradient overlay */}
+          <div className="absolute top-0 left-0 w-full h-32 bg-gradient-to-b from-purple-600/10 to-transparent pointer-events-none" />
+          
           {/* Logo */}
-          <div className="flex items-center justify-between mb-8">
-            <Link to="/" className="flex items-center space-x-2">
-              <Gem className="w-8 h-8 text-purple-400 Gem-glow" />
-              <span className="text-xl font-serif font-bold bg-gradient-to-r from-purple-400 to-pink-400 bg-clip-text text-transparent">
+          <div className="flex items-center justify-between mb-8 relative z-10">
+            <Link to="/" className="flex items-center space-x-2 hover-lift group">
+              <div className="relative">
+                <Gem className="w-8 h-8 text-purple-400 group-hover:text-purple-300 transition-colors" />
+                <div className="absolute inset-0 blur-lg bg-purple-500/50 rounded-full animate-pulse-glow opacity-0 group-hover:opacity-100 transition-opacity" />
+              </div>
+              <span className="text-xl font-title font-bold gradient-text">
                 Alchemical Grimoire
               </span>
             </Link>
@@ -233,12 +239,13 @@ const EnhancedNavigation: React.FC = () => {
 
           {/* User Info */}
           {user && (
-            <div className="mb-8 p-4 bg-white/5 rounded-lg border border-white/10">
+            <div className="mb-8 p-4 bg-gradient-to-br from-purple-900/30 to-pink-900/20 rounded-xl border border-purple-500/30 hover-lift relative overflow-hidden">
+              <div className="absolute inset-0 bg-shimmer opacity-0 hover:opacity-100 transition-opacity" />
               <p className="text-sm text-gray-400 mb-1">Welcome back,</p>
-              <p className="font-semibold text-white">{user.name}</p>
+              <p className="font-semibold text-white font-title">{user.name}</p>
               <div className="mt-3 flex items-center space-x-2">
-                <Gem className="w-4 h-4 text-yellow-400" />
-                <span className="text-sm text-yellow-400 font-semibold">
+                <Gem className="w-4 h-4 text-gold-400 animate-pulse" />
+                <span className="text-sm text-gold-400 font-semibold">
                   {user.insightCrystals} Insight Crystals
                 </span>
               </div>
