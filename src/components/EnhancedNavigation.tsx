@@ -1,13 +1,13 @@
 import React, { useState } from 'react';
 import { Link, useLocation } from 'react-router-dom';
-import { 
-  BookOpen, 
-  Home, 
-  Compass, 
-  Sparkles, 
-  Users, 
-  Menu, 
-  X, 
+import {
+  BookOpen,
+  Home,
+  Compass,
+  Sparkles,
+  Users,
+  Menu,
+  X,
   Gem,
   Brain,
   Heart,
@@ -16,7 +16,7 @@ import {
   TrendingUp,
   Settings,
   ChevronDown
-} from 'lucide-react';
+} from 'lucide-react'; // Ensure lucide-react is installed
 import { useApp } from '../context/AppContext';
 
 interface NavigationItem {
@@ -36,34 +36,34 @@ const EnhancedNavigation: React.FC = () => {
   const { user } = useApp();
 
   const mainNavigation: NavigationItem[] = [
-    { 
-      name: 'Dashboard', 
-      href: '/', 
-      icon: Home, 
+    {
+      name: 'Dashboard',
+      href: '/',
+      icon: Home,
       description: 'Your personal overview and progress'
     },
-    { 
-      name: 'Chapters', 
-      href: '/chapters', 
-      icon: BookOpen, 
+    {
+      name: 'Chapters',
+      href: '/chapters',
+      icon: BookOpen,
       description: 'Explore the alchemical journey'
     },
-    { 
-      name: 'Alchemist\'s Toolkit', 
-      href: '/toolkit', 
-      icon: Compass, 
+    {
+      name: 'Alchemist\'s Toolkit',
+      href: '/toolkit',
+      icon: Compass,
       description: 'Interactive tools and exercises'
     },
-    { 
-      name: 'Archetypes', 
-      href: '/archetypes', 
-      icon: Sparkles, 
+    {
+      name: 'Archetypes',
+      href: '/archetypes',
+      icon: Sparkles,
       description: 'Discover your inner archetypes'
     },
-    { 
-      name: 'Community', 
-      href: '/community', 
-      icon: Users, 
+    {
+      name: 'Community',
+      href: '/community',
+      icon: Users,
       description: 'Connect with fellow seekers'
     },
   ];
@@ -71,7 +71,7 @@ const EnhancedNavigation: React.FC = () => {
   const aiNavigation: NavigationItem[] = [
     {
       name: 'AI-Powered Activities',
-      href: '/activities',
+      href: '#', // Changed href to # as it's a parent item
       icon: Brain,
       description: 'Enhanced shadow work experiences',
       isNew: true,
@@ -105,7 +105,7 @@ const EnhancedNavigation: React.FC = () => {
     },
     {
       name: 'Advanced Features',
-      href: '/features',
+      href: '#', // Changed href to # as it's a parent item
       icon: Moon,
       description: 'Deep integration tools',
       isNew: true,
@@ -128,18 +128,21 @@ const EnhancedNavigation: React.FC = () => {
   ];
 
   const toggleExpanded = (item: string) => {
-    setExpandedItems(prev => 
-      prev.includes(item) 
+    setExpandedItems(prev =>
+      prev.includes(item)
         ? prev.filter(i => i !== item)
         : [...prev, item]
     );
   };
 
   const isItemActive = (item: NavigationItem) => {
+    // Check if the current path matches the item's href directly
+    if (location.pathname === item.href) return true;
+    // If the item has children, check if any child's href matches the current path
     if (item.children) {
       return item.children.some(child => location.pathname === child.href);
     }
-    return location.pathname === item.href;
+    return false;
   };
 
   const renderNavigationItem = (item: NavigationItem, level: number = 0) => {
@@ -147,25 +150,24 @@ const EnhancedNavigation: React.FC = () => {
     const isExpanded = expandedItems.includes(item.name);
     const hasChildren = item.children && item.children.length > 0;
 
+    // Use a button for parent items to handle expansion, Link for others
+    const Component = hasChildren ? 'button' : Link;
+    const props = hasChildren
+      ? { onClick: () => toggleExpanded(item.name) }
+      : { to: item.href, onClick: () => setSidebarOpen(false) };
+
+
     return (
       <div key={item.name}>
-        <Link
-          to={item.href}
-          className={`flex items-center space-x-3 px-4 py-3 rounded-lg transition-all group ${
+        <Component
+          {...props}
+          className={`w-full flex items-center space-x-3 px-4 py-3 rounded-lg transition-all group text-left ${
             isActive
               ? 'bg-gradient-to-r from-purple-600/50 to-pink-600/50 text-white'
               : 'text-gray-300 hover:bg-white/5 hover:text-white'
           } ${level > 0 ? 'ml-6' : ''}`}
-          onClick={(e) => {
-            if (hasChildren) {
-              e.preventDefault();
-              toggleExpanded(item.name);
-            } else {
-              setSidebarOpen(false);
-            }
-          }}
         >
-          <item.icon className={`w-5 h-5 ${isActive ? 'text-white' : 'text-gray-400 group-hover:text-white'}`} />
+          <item.icon className={`w-5 h-5 flex-shrink-0 ${isActive ? 'text-white' : 'text-gray-400 group-hover:text-white'}`} />
           <div className="flex-1">
             <div className="flex items-center space-x-2">
               <span className="font-medium">{item.name}</span>
@@ -175,21 +177,21 @@ const EnhancedNavigation: React.FC = () => {
                 </span>
               )}
             </div>
-            {item.description && level === 0 && (
+            {item.description && level === 0 && !hasChildren && ( // Only show description for top-level non-parent items
               <p className="text-xs text-gray-400 mt-1">{item.description}</p>
             )}
           </div>
           {hasChildren && (
-            <ChevronDown 
-              className={`w-4 h-4 transition-transform ${isExpanded ? 'rotate-180' : ''}`} 
+            <ChevronDown
+              className={`w-4 h-4 transition-transform ${isExpanded ? 'rotate-180' : ''}`}
             />
           )}
-        </Link>
-        
+        </Component>
+
         {/* Render children */}
         {hasChildren && isExpanded && (
           <div className="mt-2 space-y-1">
-            {item.children.map(child => renderNavigationItem(child, level + 1))}
+            {item.children?.map(child => renderNavigationItem(child, level + 1))}
           </div>
         )}
       </div>
@@ -244,28 +246,14 @@ const EnhancedNavigation: React.FC = () => {
           )}
 
           {/* Navigation */}
-          <div className="flex-1 space-y-6 overflow-y-auto">
+          <div className="flex-1 space-y-6 overflow-y-auto pr-2"> {/* Added padding-right for scrollbar */}
             {/* Main Navigation */}
             <div>
               <h3 className="text-xs font-semibold text-gray-400 uppercase tracking-wider mb-3">
                 Main Navigation
               </h3>
               <nav className="space-y-2">
-                {mainNavigation.map((item) => (
-                  <Link
-                    key={item.name}
-                    to={item.href}
-                    className={`flex items-center space-x-3 px-4 py-3 rounded-lg transition-all ${
-                      location.pathname === item.href
-                        ? 'bg-gradient-to-r from-purple-600/50 to-pink-600/50 text-white'
-                        : 'text-gray-300 hover:bg-white/5 hover:text-white'
-                    }`}
-                    onClick={() => setSidebarOpen(false)}
-                  >
-                    <item.icon className="w-5 h-5" />
-                    <span className="font-medium">{item.name}</span>
-                  </Link>
-                ))}
+                {mainNavigation.map((item) => renderNavigationItem(item))}
               </nav>
             </div>
 
