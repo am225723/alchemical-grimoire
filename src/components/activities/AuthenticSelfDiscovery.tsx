@@ -1,6 +1,6 @@
-import React, { useState, useEffect } from 'react';
-import { motion, AnimatePresence } from 'framer-motion';
-import { Heart, Brain, Users, Lightbulb, Target, Award, TrendingUp, Star, ChevronRight, Sparkles } from 'lucide-react';
+import React, { useState } from 'react'; // Removed unused useEffect
+import { motion } from 'framer-motion'; // Removed unused AnimatePresence
+import { Heart, Brain, Users, Lightbulb, Target, Award, TrendingUp, Star, ChevronRight, Sparkles } from 'lucide-react'; // Ensure lucide-react is installed
 import { useAIService, AuthenticityScore } from '../../services/aiService';
 
 interface Question {
@@ -111,8 +111,10 @@ const AuthenticSelfDiscovery: React.FC<AuthenticSelfDiscoveryProps> = ({ onClose
   const handleSubmitAssessment = async () => {
     setIsAnalyzing(true);
     try {
+      // Corrected: Pass responses as the first argument, which aiService expects as any[] based on error TS2345
+      // This might need adjustment in aiService.ts if responses shouldn't be an array
       const score = await aiService.assessAuthenticity(
-        responses,
+        Object.values(responses), // Pass values as an array
         [], // behaviors data would come from user tracking
         ['authenticity', 'self-expression', 'vulnerability', 'integrity'] // sample values
       );
@@ -124,6 +126,7 @@ const AuthenticSelfDiscovery: React.FC<AuthenticSelfDiscoveryProps> = ({ onClose
       setIsAnalyzing(false);
     }
   };
+
 
   const getCategoryIcon = (category: string) => {
     switch (category) {
@@ -207,8 +210,8 @@ const AuthenticSelfDiscovery: React.FC<AuthenticSelfDiscoveryProps> = ({ onClose
                   </div>
                   <h3 className="text-3xl font-bold text-white mb-4">Discover Your Authentic Self</h3>
                   <p className="text-gray-300 text-lg leading-relaxed">
-                    This journey will help you explore the depths of your authentic nature. 
-                    Through thoughtful questions and AI-powered insights, you'll gain clarity 
+                    This journey will help you explore the depths of your authentic nature.
+                    Through thoughtful questions and AI-powered insights, you'll gain clarity
                     on how aligned you are with your true self.
                   </p>
                 </div>
@@ -228,7 +231,7 @@ const AuthenticSelfDiscovery: React.FC<AuthenticSelfDiscoveryProps> = ({ onClose
                   <div className="flex items-center justify-center space-x-8 text-gray-300">
                     <div className="flex items-center space-x-2">
                       <Award className="w-5 h-5 text-purple-400" />
-                      <span>8 Questions</span>
+                      <span>{questions.length} Questions</span>
                     </div>
                     <div className="flex items-center space-x-2">
                       <TrendingUp className="w-5 h-5 text-green-400" />
@@ -260,7 +263,7 @@ const AuthenticSelfDiscovery: React.FC<AuthenticSelfDiscoveryProps> = ({ onClose
                   <span className="text-sm text-gray-400">{Math.round(progress)}% Complete</span>
                 </div>
                 <div className="w-full bg-white/10 rounded-full h-2">
-                  <div 
+                  <div
                     className="bg-gradient-to-r from-purple-600 to-pink-600 h-2 rounded-full transition-all duration-300"
                     style={{ width: `${progress}%` }}
                   />
@@ -280,7 +283,7 @@ const AuthenticSelfDiscovery: React.FC<AuthenticSelfDiscoveryProps> = ({ onClose
                   </div>
                   <span className="text-purple-400 font-medium capitalize">{currentQuestion.category}</span>
                 </div>
-                
+
                 <h3 className="text-2xl font-bold text-white mb-6">{currentQuestion.question}</h3>
 
                 {/* Answer Options */}
@@ -389,7 +392,7 @@ const AuthenticSelfDiscovery: React.FC<AuthenticSelfDiscoveryProps> = ({ onClose
                     </div>
                     <p className={`text-2xl font-bold ${getScoreColor(score)}`}>{score}</p>
                     <div className="w-full bg-white/10 rounded-full h-2 mt-2">
-                      <div 
+                      <div
                         className="bg-gradient-to-r from-purple-600 to-pink-600 h-2 rounded-full"
                         style={{ width: `${score}%` }}
                       />
