@@ -37,7 +37,8 @@ function App() {
 
           {/* Main Content - Desktop margin adjusts based on sidebar state */}
           <main 
-            className={`min-h-screen transition-all duration-300 ml-0 ${sidebarCollapsed ? 'lg:ml-[80px]' : 'lg:ml-[320px]'}`}
+            className="min-h-screen transition-all duration-300 relative z-10"
+            style={{ marginLeft: sidebarCollapsed ? '80px' : '320px' }}
           >
             <div className="px-6 lg:px-8 py-6"> 
               <Routes>

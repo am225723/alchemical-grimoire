@@ -275,9 +275,7 @@ const EnhancedNavigation: React.FC<EnhancedNavigationProps> = ({ isCollapsed, on
 
       {/* Sidebar */}
       <aside
-        className={`fixed top-0 left-0 z-50 h-full glass-card-glow border-r border-purple-500/30 transform transition-all duration-300 ease-in-out ${
-          sidebarOpen ? 'translate-x-0' : '-translate-x-full'
-        } lg:translate-x-0 shadow-glow`}
+        className="fixed top-0 left-0 bottom-0 z-50 glass-card-glow border-r border-purple-500/30 transition-all duration-300 shadow-glow"
         style={{ width: isCollapsed ? '80px' : '320px' }}
       >
         <div className="flex flex-col h-full p-6 relative">
