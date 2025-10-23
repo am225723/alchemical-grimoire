@@ -36,7 +36,7 @@
   }
 
   .gradient-text {
-    @apply bg-gradient-to-r from-ocean-400 via-purple-400 to-accent-400 bg-clip-text text-transparent animate-gradient;
+    @apply bg-gradient-to-r from-ocean-400 via-purple-400 to-accent-400 bg-clip-text text-transparent;
   }
 
   .btn-primary {
