@@ -15,8 +15,10 @@ import {
   Eye,
   TrendingUp,
   Settings,
-  ChevronDown
-} from 'lucide-react'; // Ensure lucide-react is installed
+  ChevronDown,
+  ChevronLeft,
+  ChevronRight
+} from 'lucide-react';
 import { useApp } from '../context/AppContext';
 
 interface NavigationItem {
@@ -29,7 +31,12 @@ interface NavigationItem {
   children?: NavigationItem[];
 }
 
-const EnhancedNavigation: React.FC = () => {
+interface EnhancedNavigationProps {
+  isCollapsed: boolean;
+  onToggleCollapse: () => void;
+}
+
+const EnhancedNavigation: React.FC<EnhancedNavigationProps> = ({ isCollapsed, onToggleCollapse }) => {
   const [sidebarOpen, setSidebarOpen] = useState(false);
   const [expandedItems, setExpandedItems] = useState<string[]>([]);
   const location = useLocation();
@@ -156,6 +163,48 @@ const EnhancedNavigation: React.FC = () => {
       ? { onClick: () => toggleExpanded(item.name) }
       : { to: item.href, onClick: () => setSidebarOpen(false) };
 
+    // Simplified rendering when collapsed
+    if (isCollapsed && level === 0) {
+      return (
+        <div key={item.name} className="relative group">
+          {hasChildren ? (
+            <button
+              onClick={() => toggleExpanded(item.name)}
+              className={`w-full flex items-center justify-center p-3 rounded-lg transition-all ${
+                isActive
+                  ? 'bg-gradient-to-r from-purple-600/60 to-pink-600/60 text-white shadow-glow-sm'
+                  : 'text-gray-300 hover:bg-white/10 hover:text-white hover:shadow-glow-sm'
+              }`}
+              title={item.name}
+            >
+              <item.icon className={`w-5 h-5 ${isActive ? 'text-white' : 'text-gray-400 group-hover:text-white'}`} />
+            </button>
+          ) : (
+            <Link
+              to={item.href}
+              className={`flex items-center justify-center p-3 rounded-lg transition-all ${
+                isActive
+                  ? 'bg-gradient-to-r from-purple-600/60 to-pink-600/60 text-white shadow-glow-sm'
+                  : 'text-gray-300 hover:bg-white/10 hover:text-white hover:shadow-glow-sm'
+              }`}
+              title={item.name}
+              onClick={() => setSidebarOpen(false)}
+            >
+              <item.icon className={`w-5 h-5 ${isActive ? 'text-white' : 'text-gray-400 group-hover:text-white'}`} />
+            </Link>
+          )}
+          {/* Tooltip on hover */}
+          <div className="hidden lg:block absolute left-full ml-2 top-1/2 -translate-y-1/2 bg-gray-900 text-white px-3 py-2 rounded-lg text-sm whitespace-nowrap opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all z-50 shadow-lg">
+            {item.name}
+            {item.isNew && (
+              <span className="ml-2 px-2 py-0.5 text-xs rounded-full bg-green-400/20 text-green-400 border border-green-400/30">
+                {item.badge}
+              </span>
+            )}
+          </div>
+        </div>
+      );
+    }
 
     return (
       <div key={item.name}>
@@ -177,7 +226,7 @@ const EnhancedNavigation: React.FC = () => {
                 </span>
               )}
             </div>
-            {item.description && level === 0 && !hasChildren && ( // Only show description for top-level non-parent items
+            {item.description && level === 0 && !hasChildren && (
               <p className="text-xs text-gray-400 mt-1">{item.description}</p>
             )}
           </div>
@@ -210,35 +259,48 @@ const EnhancedNavigation: React.FC = () => {
 
       {/* Sidebar */}
       <aside
-        className={`fixed top-0 left-0 z-50 h-full w-80 glass-card-glow border-r border-purple-500/30 transform transition-transform duration-300 ease-in-out ${
+        className={`fixed top-0 left-0 z-50 h-full glass-card-glow border-r border-purple-500/30 transform transition-all duration-300 ease-in-out ${
           sidebarOpen ? 'translate-x-0' : '-translate-x-full'
-        } lg:translate-x-0 shadow-glow`}
+        } lg:translate-x-0 shadow-glow ${
+          isCollapsed ? 'lg:w-20' : 'lg:w-80'
+        } w-80`}
       >
         <div className="flex flex-col h-full p-6 relative">
           {/* Decorative gradient overlay */}
           <div className="absolute top-0 left-0 w-full h-32 bg-gradient-to-b from-purple-600/10 to-transparent pointer-events-none" />
           
-          {/* Logo */}
+          {/* Logo and Collapse Button */}
           <div className="flex items-center justify-between mb-8 relative z-10">
-            <Link to="/" className="flex items-center space-x-2 hover-lift group">
+            <Link to="/" className={`flex items-center hover-lift group ${isCollapsed ? 'lg:justify-center lg:w-full' : 'space-x-2'}`}>
               <div className="relative">
                 <Gem className="w-8 h-8 text-purple-400 group-hover:text-purple-300 transition-colors" />
                 <div className="absolute inset-0 blur-lg bg-purple-500/50 rounded-full animate-pulse-glow opacity-0 group-hover:opacity-100 transition-opacity" />
               </div>
-              <span className="text-xl font-title font-bold gradient-text">
-                Alchemical Grimoire
-              </span>
+              {!isCollapsed && (
+                <span className="text-xl font-title font-bold gradient-text">
+                  Alchemical Grimoire
+                </span>
+              )}
             </Link>
-            <button
-              onClick={() => setSidebarOpen(false)}
-              className="lg:hidden text-gray-400 hover:text-white"
-            >
-              <X className="w-6 h-6" />
-            </button>
+            <div className="flex items-center space-x-2">
+              <button
+                onClick={onToggleCollapse}
+                className="hidden lg:block text-gray-400 hover:text-white transition-colors p-2 hover:bg-white/10 rounded-lg"
+                title={isCollapsed ? 'Expand sidebar' : 'Collapse sidebar'}
+              >
+                {isCollapsed ? <ChevronRight className="w-5 h-5" /> : <ChevronLeft className="w-5 h-5" />}
+              </button>
+              <button
+                onClick={() => setSidebarOpen(false)}
+                className="lg:hidden text-gray-400 hover:text-white"
+              >
+                <X className="w-6 h-6" />
+              </button>
+            </div>
           </div>
 
           {/* User Info */}
-          {user && (
+          {user && !isCollapsed && (
             <div className="mb-8 p-4 bg-gradient-to-br from-purple-900/30 to-pink-900/20 rounded-xl border border-purple-500/30 hover-lift relative overflow-hidden">
               <div className="absolute inset-0 bg-shimmer opacity-0 hover:opacity-100 transition-opacity" />
               <p className="text-sm text-gray-400 mb-1">Welcome back,</p>
@@ -251,14 +313,23 @@ const EnhancedNavigation: React.FC = () => {
               </div>
             </div>
           )}
+          {user && isCollapsed && (
+            <div className="mb-8 flex justify-center">
+              <div className="p-2 bg-gradient-to-br from-purple-900/30 to-pink-900/20 rounded-lg border border-purple-500/30 hover-lift">
+                <Gem className="w-6 h-6 text-gold-400 animate-pulse" />
+              </div>
+            </div>
+          )}
 
           {/* Navigation */}
-          <div className="flex-1 space-y-6 overflow-y-auto pr-2"> {/* Added padding-right for scrollbar */}
+          <div className="flex-1 space-y-6 overflow-y-auto pr-2">
             {/* Main Navigation */}
             <div>
-              <h3 className="text-xs font-semibold text-gray-400 uppercase tracking-wider mb-3">
-                Main Navigation
-              </h3>
+              {!isCollapsed && (
+                <h3 className="text-xs font-semibold text-gray-400 uppercase tracking-wider mb-3">
+                  Main Navigation
+                </h3>
+              )}
               <nav className="space-y-2">
                 {mainNavigation.map((item) => renderNavigationItem(item))}
               </nav>
@@ -266,10 +337,14 @@ const EnhancedNavigation: React.FC = () => {
 
             {/* AI-Enhanced Features */}
             <div>
-              <h3 className="text-xs font-semibold text-gray-400 uppercase tracking-wider mb-3 flex items-center space-x-2">
-                <Brain className="w-4 h-4" />
-                <span>AI-Enhanced</span>
-              </h3>
+              {!isCollapsed ? (
+                <h3 className="text-xs font-semibold text-gray-400 uppercase tracking-wider mb-3 flex items-center space-x-2">
+                  <Brain className="w-4 h-4" />
+                  <span>AI-Enhanced</span>
+                </h3>
+              ) : (
+                <div className="border-t border-white/10 my-4" />
+              )}
               <nav className="space-y-2">
                 {aiNavigation.map((item) => renderNavigationItem(item))}
               </nav>
@@ -281,26 +356,29 @@ const EnhancedNavigation: React.FC = () => {
             <nav className="space-y-2">
               <Link
                 to="/settings"
-                className={`flex items-center space-x-3 px-4 py-3 rounded-lg transition-all ${
+                className={`flex items-center ${isCollapsed ? 'justify-center p-3' : 'space-x-3 px-4 py-3'} rounded-lg transition-all ${
                   location.pathname === '/settings'
                     ? 'bg-gradient-to-r from-purple-600/50 to-pink-600/50 text-white'
                     : 'text-gray-300 hover:bg-white/5 hover:text-white'
                 }`}
                 onClick={() => setSidebarOpen(false)}
+                title={isCollapsed ? 'Settings' : undefined}
               >
                 <Settings className="w-5 h-5" />
-                <span className="font-medium">Settings</span>
+                {!isCollapsed && <span className="font-medium">Settings</span>}
               </Link>
             </nav>
           </div>
 
           {/* Footer */}
-          <div className="pt-6 border-t border-white/10 mt-6">
-            <p className="text-xs text-gray-400 text-center">
-              "Until you make the unconscious conscious, it will direct your life and you will call it fate."
-            </p>
-            <p className="text-xs text-gray-500 text-center mt-2">— Carl Jung</p>
-          </div>
+          {!isCollapsed && (
+            <div className="pt-6 border-t border-white/10 mt-6">
+              <p className="text-xs text-gray-400 text-center">
+                "Until you make the unconscious conscious, it will direct your life and you will call it fate."
+              </p>
+              <p className="text-xs text-gray-500 text-center mt-2">— Carl Jung</p>
+            </div>
+          )}
         </div>
       </aside>
 
