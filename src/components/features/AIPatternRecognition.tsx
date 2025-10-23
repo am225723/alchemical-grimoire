@@ -113,7 +113,7 @@ const AIPatternRecognition: React.FC<AIPatternRecognitionProps> = ({
           ],
           relatedPatterns: ['people-pleasing', 'lack of boundaries']
         }
-      ];
+  ];
 
       // Simulate processing delay
       await new Promise(resolve => setTimeout(resolve, 2000));
