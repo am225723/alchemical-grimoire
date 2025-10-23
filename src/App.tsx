@@ -36,7 +36,10 @@ function App() {
           <EnhancedNavigation isCollapsed={sidebarCollapsed} onToggleCollapse={toggleSidebar} />
 
           {/* Main Content - Desktop margin adjusts based on sidebar state */}
-          <main className={`min-h-screen pt-16 lg:pt-6 transition-all duration-300 ${sidebarCollapsed ? 'lg:ml-20' : 'lg:ml-80'}`}>
+          <main 
+            className="min-h-screen pt-16 lg:pt-6 transition-all duration-300"
+            style={{ marginLeft: sidebarCollapsed ? '80px' : '320px' }}
+          >
             <div className="px-6 lg:px-8 py-6 lg:py-0">
               <Routes>
                 {/* Home Route */}
