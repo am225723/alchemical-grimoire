@@ -1,29 +1,132 @@
+import React from 'react';
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
 import { AppProvider } from './context/AppContext';
-import Layout from './components/Layout';
-import Dashboard from './pages/Dashboard';
-import Chapters from './pages/Chapters';
-import ChapterDetail from './pages/ChapterDetail';
-import Archetypes from './pages/Archetypes';
-import Toolkit from './pages/Toolkit';
-import Community from './pages/Community';
+import EnhancedNavigation from './components/EnhancedNavigation';
+
+// Enhanced Activities
+import ImmersiveShadowDialogue from './components/activities/ImmersiveShadowDialogue';
+import RelationshipPatternMapping from './components/activities/RelationshipPatternMapping';
+import AuthenticSelfDiscovery from './components/activities/AuthenticSelfDiscovery';
+import TransformationTimeline from './components/activities/TransformationTimeline';
+
+// AI-Powered Features
+import AIPatternRecognition from './components/features/AIPatternRecognition';
+import ImmersiveShadowIntegration from './components/features/ImmersiveShadowIntegration';
+
+// Placeholder HomePage
+const HomePage: React.FC = () => (
+  <div className="min-h-screen flex items-center justify-center">
+    <div className="text-center">
+      <h1 className="text-6xl font-bold text-white mb-4">Alchemical Grimoire</h1>
+      <p className="text-2xl text-blue-200 mb-8">Enhanced Edition with AI Integration</p>
+      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 max-w-4xl mx-auto">
+        <div className="bg-white/10 backdrop-blur-md rounded-xl p-6 border border-white/20">
+          <div className="text-4xl mb-4">💬</div>
+          <h3 className="text-xl font-semibold text-white mb-2">Immersive Dialogue</h3>
+          <p className="text-gray-300">AI-powered shadow conversations</p>
+        </div>
+        <div className="bg-white/10 backdrop-blur-md rounded-xl p-6 border border-white/20">
+          <div className="text-4xl mb-4">🗺️</div>
+          <h3 className="text-xl font-semibold text-white mb-2">Pattern Recognition</h3>
+          <p className="text-gray-300">Discover hidden patterns</p>
+        </div>
+        <div className="bg-white/10 backdrop-blur-md rounded-xl p-6 border border-white/20">
+          <div className="text-4xl mb-4">⚔️</div>
+          <h3 className="text-xl font-semibold text-white mb-2">Shadow Quests</h3>
+          <p className="text-gray-300">Gamified integration journey</p>
+        </div>
+        <div className="bg-white/10 backdrop-blur-md rounded-xl p-6 border border-white/20">
+          <div className="text-4xl mb-4">✨</div>
+          <h3 className="text-xl font-semibold text-white mb-2">AI Insights</h3>
+          <p className="text-gray-300">Personalized guidance</p>
+        </div>
+      </div>
+    </div>
+  </div>
+);
+
+// Placeholder Context
+const AppProvider: React.FC<{ children: React.ReactNode }> = ({ children }) => (
+  <div>{children}</div>
+);
 
 function App() {
   return (
-    <AppProvider>
-      <Router>
-        <Layout>
-          <Routes>
-            <Route path="/" element={<Dashboard />} />
-            <Route path="/chapters" element={<Chapters />} />
-            <Route path="/chapter/:id" element={<ChapterDetail />} />
-            <Route path="/archetypes" element={<Archetypes />} />
-            <Route path="/toolkit" element={<Toolkit />} />
-            <Route path="/community" element={<Community />} />
-          </Routes>
-        </Layout>
-      </Router>
-    </AppProvider>
+    <Router>
+      <AppProvider>
+        <div className="min-h-screen bg-gradient-to-br from-purple-900 via-blue-900 to-indigo-900">
+          <EnhancedNavigation />
+          
+          {/* Main Content - Desktop has top nav, mobile has side nav */}
+          <main className="lg:pt-16">
+            <Routes>
+              {/* Home Route */}
+              <Route path="/" element={<HomePage />} />
+              
+              {/* Enhanced Activities */}
+              <Route path="/activities/shadow-dialogue" element={<ImmersiveShadowDialogue />} />
+              <Route path="/activities/relationship-patterns" element={<RelationshipPatternMapping />} />
+              <Route path="/activities/authentic-discovery" element={<AuthenticSelfDiscovery />} />
+              <Route path="/activities/transformation-timeline" element={<TransformationTimeline />} />
+              
+              {/* AI-Powered Features */}
+              <Route path="/features/pattern-recognition" element={<AIPatternRecognition />} />
+              <Route path="/features/shadow-integration" element={<ImmersiveShadowIntegration />} />
+              
+              {/* Placeholder routes for future features */}
+              <Route path="/features/growth-analytics" element={
+                <div className="min-h-screen flex items-center justify-center">
+                  <div className="text-center text-white">
+                    <h1 className="text-4xl font-bold mb-4">Growth Analytics</h1>
+                    <p className="text-xl text-blue-200">Coming Soon</p>
+                  </div>
+                </div>
+              } />
+              <Route path="/features/predictions" element={
+                <div className="min-h-screen flex items-center justify-center">
+                  <div className="text-center text-white">
+                    <h1 className="text-4xl font-bold mb-4">Predictive Insights</h1>
+                    <p className="text-xl text-blue-200">Coming Soon</p>
+                  </div>
+                </div>
+              } />
+              <Route path="/community/collective-wisdom" element={
+                <div className="min-h-screen flex items-center justify-center">
+                  <div className="text-center text-white">
+                    <h1 className="text-4xl font-bold mb-4">Collective Wisdom</h1>
+                    <p className="text-xl text-blue-200">Coming Soon</p>
+                  </div>
+                </div>
+              } />
+              <Route path="/community/group-journey" element={
+                <div className="min-h-screen flex items-center justify-center">
+                  <div className="text-center text-white">
+                    <h1 className="text-4xl font-bold mb-4">Group Journey</h1>
+                    <p className="text-xl text-blue-200">Coming Soon</p>
+                  </div>
+                </div>
+              } />
+              <Route path="/tools/meditation" element={
+                <div className="min-h-screen flex items-center justify-center">
+                  <div className="text-center text-white">
+                    <h1 className="text-4xl font-bold mb-4">Meditation Library</h1>
+                    <p className="text-xl text-blue-200">Coming Soon</p>
+                  </div>
+                </div>
+              } />
+              <Route path="/tools/sensory-studio" element={
+                <div className="min-h-screen flex items-center justify-center">
+                  <div className="text-center text-white">
+                    <h1 className="text-4xl font-bold mb-4">Sensory Studio</h1>
+                    <p className="text-xl text-blue-200">Coming Soon</p>
+                  </div>
+                </div>
+              } />
+            </Routes>
+          </main>
+        </div>
+      </AppProvider>
+    </Router>
   );
 }
 
