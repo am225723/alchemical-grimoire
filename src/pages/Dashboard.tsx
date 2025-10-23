@@ -22,25 +22,33 @@ const Dashboard: React.FC = () => {
       icon: BookOpen,
       title: 'Interactive Chapters',
       description: 'Journey through shadow work, inner child healing, and archetypal exploration',
-      color: 'ocean'
+      bgColor: 'bg-ocean-500/20',
+      borderColor: 'border-ocean-500/30',
+      iconColor: 'text-ocean-400'
     },
     {
       icon: Wrench,
       title: 'Alchemist\'s Toolkit',
       description: 'Journaling, trigger tracking, dream logs, and time capsules for transformation',
-      color: 'primary'
+      bgColor: 'bg-primary-500/20',
+      borderColor: 'border-primary-500/30',
+      iconColor: 'text-primary-400'
     },
     {
       icon: Compass,
       title: 'Archetype Explorer',
       description: 'Discover and integrate Jungian archetypes to understand your psyche',
-      color: 'secondary'
+      bgColor: 'bg-secondary-500/20',
+      borderColor: 'border-secondary-500/30',
+      iconColor: 'text-secondary-400'
     },
     {
       icon: Users,
       title: 'Community Wisdom',
       description: 'Share insights anonymously and learn from fellow seekers',
-      color: 'ocean'
+      bgColor: 'bg-ocean-500/20',
+      borderColor: 'border-ocean-500/30',
+      iconColor: 'text-ocean-400'
     }
   ];
 
@@ -180,8 +188,8 @@ const Dashboard: React.FC = () => {
                 transition={{ delay: 0.1 * index + 0.5 }}
                 className="glass-card p-6 hover-lift"
               >
-                <div className={`w-14 h-14 rounded-xl bg-${feature.color}-500/20 border border-${feature.color}-500/30 flex items-center justify-center mb-4`}>
-                  <feature.icon className={`w-7 h-7 text-${feature.color}-400`} />
+                <div className={`w-14 h-14 rounded-xl ${feature.bgColor} border ${feature.borderColor} flex items-center justify-center mb-4`}>
+                  <feature.icon className={`w-7 h-7 ${feature.iconColor}`} />
                 </div>
                 <h3 className="text-lg font-bold text-slate-100 mb-2">{feature.title}</h3>
                 <p className="text-sm text-slate-400 leading-relaxed">{feature.description}</p>

@@ -1,6 +1,7 @@
+import { useState } from 'react';
 import { BrowserRouter as Router, Routes, Route, Link } from 'react-router-dom';
 import { AppProvider } from './context/AppContext';
-import { BookOpen, Compass, Users, Wrench, Home, Sparkles } from 'lucide-react';
+import { BookOpen, Compass, Users, Wrench, Home, Sparkles, Menu, X } from 'lucide-react';
 
 // Pages
 import HomePage from './pages/HomePage';
@@ -22,49 +23,120 @@ import AIPatternRecognition from './components/features/AIPatternRecognition';
 import ImmersiveShadowIntegration from './components/features/ImmersiveShadowIntegration';
 
 const TopNav = () => {
+  const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
+
   return (
-    <nav className="fixed top-0 left-0 right-0 z-50 glass-card border-b border-ocean-500/20">
-      <div className="max-w-7xl mx-auto px-6 py-4">
-        <div className="flex items-center justify-between">
-          {/* Logo */}
-          <Link to="/" className="flex items-center space-x-3 hover-lift">
-            <Sparkles className="w-8 h-8 text-ocean-400" />
-            <span className="text-2xl font-display font-bold gradient-text">
-              Alchemical Grimoire
-            </span>
-          </Link>
+    <>
+      <nav className="fixed top-0 left-0 right-0 z-50 glass-card border-b border-ocean-500/20">
+        <div className="max-w-7xl mx-auto px-6 py-4">
+          <div className="flex items-center justify-between">
+            {/* Logo */}
+            <Link to="/" className="flex items-center space-x-3 hover-lift">
+              <Sparkles className="w-8 h-8 text-ocean-400" />
+              <span className="text-2xl font-display font-bold gradient-text">
+                Alchemical Grimoire
+              </span>
+            </Link>
 
-          {/* Navigation Links */}
-          <div className="hidden md:flex items-center space-x-8">
-            <Link to="/" className="text-slate-300 hover:text-ocean-400 transition-colors font-medium flex items-center space-x-2">
-              <Home className="w-4 h-4" />
-              <span>Home</span>
+            {/* Desktop Navigation Links */}
+            <div className="hidden md:flex items-center space-x-8">
+              <Link to="/" className="text-slate-300 hover:text-ocean-400 transition-colors font-medium flex items-center space-x-2">
+                <Home className="w-4 h-4" />
+                <span>Home</span>
+              </Link>
+              <Link to="/chapters" className="text-slate-300 hover:text-ocean-400 transition-colors font-medium flex items-center space-x-2">
+                <BookOpen className="w-4 h-4" />
+                <span>Chapters</span>
+              </Link>
+              <Link to="/archetypes" className="text-slate-300 hover:text-ocean-400 transition-colors font-medium flex items-center space-x-2">
+                <Compass className="w-4 h-4" />
+                <span>Archetypes</span>
+              </Link>
+              <Link to="/toolkit" className="text-slate-300 hover:text-ocean-400 transition-colors font-medium flex items-center space-x-2">
+                <Wrench className="w-4 h-4" />
+                <span>Toolkit</span>
+              </Link>
+              <Link to="/community" className="text-slate-300 hover:text-ocean-400 transition-colors font-medium flex items-center space-x-2">
+                <Users className="w-4 h-4" />
+                <span>Community</span>
+              </Link>
+            </div>
+
+            {/* Desktop CTA Button */}
+            <Link to="/chapters" className="hidden md:block btn-primary">
+              Start Journey
             </Link>
-            <Link to="/chapters" className="text-slate-300 hover:text-ocean-400 transition-colors font-medium flex items-center space-x-2">
-              <BookOpen className="w-4 h-4" />
-              <span>Chapters</span>
-            </Link>
-            <Link to="/archetypes" className="text-slate-300 hover:text-ocean-400 transition-colors font-medium flex items-center space-x-2">
-              <Compass className="w-4 h-4" />
-              <span>Archetypes</span>
-            </Link>
-            <Link to="/toolkit" className="text-slate-300 hover:text-ocean-400 transition-colors font-medium flex items-center space-x-2">
-              <Wrench className="w-4 h-4" />
-              <span>Toolkit</span>
-            </Link>
-            <Link to="/community" className="text-slate-300 hover:text-ocean-400 transition-colors font-medium flex items-center space-x-2">
-              <Users className="w-4 h-4" />
-              <span>Community</span>
-            </Link>
+
+            {/* Mobile Menu Button */}
+            <button
+              onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
+              className="md:hidden text-slate-300 hover:text-ocean-400 transition-colors"
+              aria-label="Toggle menu"
+            >
+              {mobileMenuOpen ? <X className="w-6 h-6" /> : <Menu className="w-6 h-6" />}
+            </button>
           </div>
-
-          {/* CTA Button */}
-          <Link to="/chapters" className="hidden md:block btn-primary">
-            Start Journey
-          </Link>
         </div>
-      </div>
-    </nav>
+      </nav>
+
+      {/* Mobile Menu */}
+      {mobileMenuOpen && (
+        <div className="fixed inset-0 z-40 md:hidden">
+          <div className="fixed inset-0 bg-black/50" onClick={() => setMobileMenuOpen(false)} />
+          <div className="fixed top-20 right-0 bottom-0 w-64 glass-card border-l border-ocean-500/20 p-6">
+            <div className="flex flex-col space-y-4">
+              <Link 
+                to="/" 
+                className="text-slate-300 hover:text-ocean-400 transition-colors font-medium flex items-center space-x-2 p-3 rounded-lg hover:bg-slate-800/50"
+                onClick={() => setMobileMenuOpen(false)}
+              >
+                <Home className="w-5 h-5" />
+                <span>Home</span>
+              </Link>
+              <Link 
+                to="/chapters" 
+                className="text-slate-300 hover:text-ocean-400 transition-colors font-medium flex items-center space-x-2 p-3 rounded-lg hover:bg-slate-800/50"
+                onClick={() => setMobileMenuOpen(false)}
+              >
+                <BookOpen className="w-5 h-5" />
+                <span>Chapters</span>
+              </Link>
+              <Link 
+                to="/archetypes" 
+                className="text-slate-300 hover:text-ocean-400 transition-colors font-medium flex items-center space-x-2 p-3 rounded-lg hover:bg-slate-800/50"
+                onClick={() => setMobileMenuOpen(false)}
+              >
+                <Compass className="w-5 h-5" />
+                <span>Archetypes</span>
+              </Link>
+              <Link 
+                to="/toolkit" 
+                className="text-slate-300 hover:text-ocean-400 transition-colors font-medium flex items-center space-x-2 p-3 rounded-lg hover:bg-slate-800/50"
+                onClick={() => setMobileMenuOpen(false)}
+              >
+                <Wrench className="w-5 h-5" />
+                <span>Toolkit</span>
+              </Link>
+              <Link 
+                to="/community" 
+                className="text-slate-300 hover:text-ocean-400 transition-colors font-medium flex items-center space-x-2 p-3 rounded-lg hover:bg-slate-800/50"
+                onClick={() => setMobileMenuOpen(false)}
+              >
+                <Users className="w-5 h-5" />
+                <span>Community</span>
+              </Link>
+              <Link 
+                to="/chapters" 
+                className="btn-primary w-full text-center"
+                onClick={() => setMobileMenuOpen(false)}
+              >
+                Start Journey
+              </Link>
+            </div>
+          </div>
+        </div>
+      )}
+    </>
   );
 };
 
