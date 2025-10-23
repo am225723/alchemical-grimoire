@@ -1,264 +1,228 @@
-import React, { useEffect, useState } from 'react';
+import React from 'react';
 import { Link } from 'react-router-dom';
-import { BookOpen, Sparkles, TrendingUp, Calendar, Gem, Mail } from 'lucide-react'; // Changed Crystal to Gem
-import { useApp } from '../context/AppContext';
+import { BookOpen, Sparkles, TrendingUp, Compass, Wrench, Users, ArrowRight, Star, Brain, Heart, Eye } from 'lucide-react';
 import { motion } from 'framer-motion';
+import { chapters } from '../data/chapters';
 
 const Dashboard: React.FC = () => {
-  const { user, setUser, timeCapsules, journalEntries } = useApp();
-  const [readyToOpen, setReadyToOpen] = useState<any[]>([]);
+  const fadeInUp = {
+    initial: { opacity: 0, y: 20 },
+    animate: { opacity: 1, y: 0 },
+    transition: { duration: 0.5 }
+  };
 
-  useEffect(() => {
-    // Check for time capsules ready to open
-    const now = new Date();
-    const ready = timeCapsules.filter(
-      (capsule) => !capsule.opened && new Date(capsule.openDate) <= now
-    );
-    setReadyToOpen(ready);
-  }, [timeCapsules]);
+  const chapterIcons = [
+    { Icon: Brain, color: 'text-ocean-400', bgColor: 'bg-ocean-500/20', borderColor: 'border-ocean-500/30' },
+    { Icon: Heart, color: 'text-primary-400', bgColor: 'bg-primary-500/20', borderColor: 'border-primary-500/30' },
+    { Icon: Eye, color: 'text-secondary-400', bgColor: 'bg-secondary-500/20', borderColor: 'border-secondary-500/30' }
+  ];
 
-  // Initialize user if not exists
-  useEffect(() => {
-    if (!user) {
-      const newUser = {
-        id: Date.now().toString(),
-        name: 'Seeker',
-        progress: {
-          chaptersCompleted: [],
-          activitiesCompleted: [],
-          quizzesCompleted: [],
-          pathProgress: 0,
-          lastVisit: new Date().toISOString(),
-        },
-        journalEntries: [],
-        triggers: [],
-        insightCrystals: 0,
-        completedActivities: [],
-      };
-      setUser(newUser);
+  const features = [
+    {
+      icon: BookOpen,
+      title: 'Interactive Chapters',
+      description: 'Journey through shadow work, inner child healing, and archetypal exploration',
+      color: 'ocean'
+    },
+    {
+      icon: Wrench,
+      title: 'Alchemist\'s Toolkit',
+      description: 'Journaling, trigger tracking, dream logs, and time capsules for transformation',
+      color: 'primary'
+    },
+    {
+      icon: Compass,
+      title: 'Archetype Explorer',
+      description: 'Discover and integrate Jungian archetypes to understand your psyche',
+      color: 'secondary'
+    },
+    {
+      icon: Users,
+      title: 'Community Wisdom',
+      description: 'Share insights anonymously and learn from fellow seekers',
+      color: 'ocean'
     }
-  }, [user, setUser]);
-
-  const pathStones = Array.from({ length: 20 }, (_, i) => ({
-    id: i,
-    completed: user ? i < user.progress.pathProgress : false,
-  }));
-
-  const recentJournals = journalEntries.slice(0, 3);
+  ];
 
   return (
-    <div className="max-w-7xl mx-auto space-y-8">
-      {/* Welcome Section */}
-      <motion.div
-        initial={{ opacity: 0, y: 20 }}
-        animate={{ opacity: 1, y: 0 }}
-        className="glass-card p-8 text-center"
-      >
-        <h1 className="text-4xl md:text-5xl font-serif font-bold mb-4 bg-gradient-to-r from-purple-400 via-pink-400 to-gold-400 bg-clip-text text-transparent">
-          Welcome to Your Alchemical Journey
-        </h1>
-        <p className="text-xl text-gray-300 max-w-3xl mx-auto">
-          Transform the lead of unconscious patterns into the gold of self-awareness. Your path to
-          wholeness begins here.
-        </p>
-      </motion.div>
-
-      {/* Time Capsule Notification */}
-      {readyToOpen.length > 0 && (
-        <motion.div
-          initial={{ opacity: 0, scale: 0.9 }}
-          animate={{ opacity: 1, scale: 1 }}
-          className="glass-card p-6 border-2 border-gold-400 bg-gradient-to-r from-gold-900/20 to-purple-900/20"
-        >
-          <div className="flex items-center space-x-4">
-            <Mail className="w-8 h-8 text-gold-400 animate-pulse" />
-            <div className="flex-1">
-              <h3 className="text-xl font-semibold text-gold-400 mb-1">
-                A Letter from Your Past Self Awaits
-              </h3>
-              <p className="text-gray-300">
-                You have {readyToOpen.length} time capsule{readyToOpen.length > 1 ? 's' : ''} ready
-                to open.
-              </p>
+    <div className="min-h-screen">
+      {/* Hero Section */}
+      <section className="relative py-20 px-6 overflow-hidden">
+        <div className="max-w-7xl mx-auto">
+          <motion.div 
+            className="text-center max-w-4xl mx-auto"
+            {...fadeInUp}
+          >
+            <div className="inline-flex items-center space-x-2 glass-card px-6 py-3 rounded-full mb-6">
+              <Sparkles className="w-5 h-5 text-ocean-400" />
+              <span className="text-slate-300">Begin Your Transformation Journey</span>
             </div>
-            <Link to="/toolkit" className="btn-primary">
-              Open Now
-            </Link>
-          </div>
-        </motion.div>
-      )}
-
-      {/* Stats Grid */}
-      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
-        <motion.div
-          initial={{ opacity: 0, y: 20 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ delay: 0.1 }}
-          className="glass-card p-6"
-        >
-          <div className="flex items-center justify-between mb-4">
-            <BookOpen className="w-8 h-8 text-purple-400" />
-            <span className="text-3xl font-bold text-white">
-              {user?.progress.chaptersCompleted.length || 0}
-            </span>
-          </div>
-          <h3 className="text-gray-300 font-semibold">Chapters Completed</h3>
-        </motion.div>
-
-        <motion.div
-          initial={{ opacity: 0, y: 20 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ delay: 0.2 }}
-          className="glass-card p-6"
-        >
-          <div className="flex items-center justify-between mb-4">
-            <Gem className="w-8 h-8 text-gold-400 Gem-glow" />
-            <span className="text-3xl font-bold text-white">{user?.insightCrystals || 0}</span>
-          </div>
-          <h3 className="text-gray-300 font-semibold">Insight Crystals</h3> {/* Corrected name */}
-        </motion.div>
-
-        <motion.div
-          initial={{ opacity: 0, y: 20 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ delay: 0.3 }}
-          className="glass-card p-6"
-        >
-          <div className="flex items-center justify-between mb-4">
-            <Calendar className="w-8 h-8 text-pink-400" />
-            <span className="text-3xl font-bold text-white">{journalEntries.length}</span>
-          </div>
-          <h3 className="text-gray-300 font-semibold">Journal Entries</h3>
-        </motion.div>
-
-        <motion.div
-          initial={{ opacity: 0, y: 20 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ delay: 0.4 }}
-          className="glass-card p-6"
-        >
-          <div className="flex items-center justify-between mb-4">
-            <TrendingUp className="w-8 h-8 text-green-400" />
-            <span className="text-3xl font-bold text-white">
-              {user?.progress.activitiesCompleted.length || 0}
-            </span>
-          </div>
-          <h3 className="text-gray-300 font-semibold">Activities Completed</h3>
-        </motion.div>
-      </div>
-
-      {/* Alchemical Path */}
-      <motion.div
-        initial={{ opacity: 0, y: 20 }}
-        animate={{ opacity: 1, y: 0 }}
-        transition={{ delay: 0.5 }}
-        className="glass-card p-8"
-      >
-        <div className="flex items-center justify-between mb-6">
-          <h2 className="text-2xl font-serif font-bold text-white">Your Alchemical Path</h2>
-          <span className="text-sm text-gray-400">
-            {user?.progress.pathProgress || 0} / {pathStones.length} stones illuminated
-          </span>
+            
+            <h1 className="text-5xl md:text-7xl font-bold mb-6 leading-tight">
+              <span className="gradient-text">Transform the Lead</span>
+              <br />
+              <span className="text-slate-100">Into Gold</span>
+            </h1>
+            
+            <p className="text-xl md:text-2xl text-slate-300 mb-10 leading-relaxed">
+              An interactive companion for shadow work, inner child healing, and archetypal exploration
+              based on Jungian psychology.
+            </p>
+            
+            <div className="flex flex-col sm:flex-row items-center justify-center gap-4">
+              <Link to="/chapters" className="btn-primary flex items-center space-x-2">
+                <span>Start Chapter I</span>
+                <ArrowRight className="w-5 h-5" />
+              </Link>
+              <Link to="/toolkit" className="btn-secondary">
+                Explore Toolkit
+              </Link>
+            </div>
+          </motion.div>
         </div>
 
-        <div className="relative">
-          {/* Path visualization */}
-          <div className="flex flex-wrap gap-3 justify-center">
-            {pathStones.map((stone, index) => (
+        {/* Decorative Elements */}
+        <div className="absolute top-10 left-10 w-72 h-72 bg-ocean-500/20 rounded-full blur-3xl animate-float"></div>
+        <div className="absolute bottom-10 right-10 w-96 h-96 bg-primary-500/20 rounded-full blur-3xl animate-float-slow"></div>
+      </section>
+
+      {/* Chapters Section */}
+      <section className="py-20 px-6">
+        <div className="max-w-7xl mx-auto">
+          <motion.div 
+            className="text-center mb-12"
+            initial={{ opacity: 0, y: 20 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ delay: 0.2 }}
+          >
+            <h2 className="section-header">The Three Chapters</h2>
+            <p className="text-lg text-slate-400 max-w-2xl mx-auto">
+              Your path to wholeness unfolds through three transformative chapters
+            </p>
+          </motion.div>
+
+          <div className="grid md:grid-cols-3 gap-8">
+            {chapters.map((chapter, index) => {
+              const { Icon, color, bgColor, borderColor } = chapterIcons[index];
+              
+              return (
+                <motion.div
+                  key={chapter.id}
+                  initial={{ opacity: 0, y: 30 }}
+                  animate={{ opacity: 1, y: 0 }}
+                  transition={{ delay: 0.1 * index + 0.3 }}
+                >
+                  <Link to={`/chapter/${chapter.id}`} className="block group">
+                    <div className="glass-card-hover p-8 h-full relative overflow-hidden">
+                      {/* Chapter Number Badge */}
+                      <div className="absolute top-4 right-4">
+                        <div className={`w-12 h-12 rounded-full ${bgColor} ${borderColor} border flex items-center justify-center`}>
+                          <span className={`text-xl font-bold ${color}`}>{chapter.id}</span>
+                        </div>
+                      </div>
+
+                      {/* Icon */}
+                      <div className={`w-16 h-16 rounded-2xl ${bgColor} ${borderColor} border flex items-center justify-center mb-6`}>
+                        <Icon className={`w-8 h-8 ${color}`} />
+                      </div>
+
+                      {/* Content */}
+                      <div className="mb-4">
+                        <h3 className="text-sm font-medium text-slate-400 mb-2">{chapter.title}</h3>
+                        <h4 className={`text-2xl font-bold mb-3 ${color} group-hover:underline`}>
+                          {chapter.subtitle}
+                        </h4>
+                        <p className="text-slate-300 leading-relaxed">
+                          {chapter.description}
+                        </p>
+                      </div>
+
+                      {/* Footer */}
+                      <div className="flex items-center justify-between mt-6 pt-6 border-t border-slate-700/50">
+                        <span className="text-sm text-slate-400">
+                          {chapter.sections.length} Sections
+                        </span>
+                        <ArrowRight className={`w-5 h-5 ${color} transform group-hover:translate-x-1 transition-transform`} />
+                      </div>
+
+                      {/* Hover Glow Effect */}
+                      <div className="absolute inset-0 bg-gradient-to-br from-ocean-500/0 via-ocean-500/0 to-primary-500/0 group-hover:from-ocean-500/10 group-hover:to-primary-500/10 transition-all duration-500 rounded-2xl"></div>
+                    </div>
+                  </Link>
+                </motion.div>
+              );
+            })}
+          </div>
+        </div>
+      </section>
+
+      {/* Features Section */}
+      <section className="py-20 px-6 bg-slate-900/20">
+        <div className="max-w-7xl mx-auto">
+          <motion.div 
+            className="text-center mb-12"
+            initial={{ opacity: 0, y: 20 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ delay: 0.4 }}
+          >
+            <h2 className="section-header">Your Transformation Toolkit</h2>
+            <p className="text-lg text-slate-400 max-w-2xl mx-auto">
+              Powerful tools and features to support your inner work
+            </p>
+          </motion.div>
+
+          <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-6">
+            {features.map((feature, index) => (
               <motion.div
-                key={stone.id}
-                initial={{ scale: 0 }}
-                animate={{ scale: 1 }}
-                transition={{ delay: index * 0.05 }}
-                className={`w-12 h-12 rounded-full flex items-center justify-center transition-all duration-500 ${
-                  stone.completed
-                    ? 'bg-gradient-to-br from-purple-500 to-pink-500 shadow-lg shadow-purple-500/50 Gem-glow'
-                    : 'bg-gray-700/50 border border-gray-600'
-                }`}
+                key={index}
+                initial={{ opacity: 0, scale: 0.9 }}
+                animate={{ opacity: 1, scale: 1 }}
+                transition={{ delay: 0.1 * index + 0.5 }}
+                className="glass-card p-6 hover-lift"
               >
-                {stone.completed && <Sparkles className="w-6 h-6 text-white" />}
+                <div className={`w-14 h-14 rounded-xl bg-${feature.color}-500/20 border border-${feature.color}-500/30 flex items-center justify-center mb-4`}>
+                  <feature.icon className={`w-7 h-7 text-${feature.color}-400`} />
+                </div>
+                <h3 className="text-lg font-bold text-slate-100 mb-2">{feature.title}</h3>
+                <p className="text-sm text-slate-400 leading-relaxed">{feature.description}</p>
               </motion.div>
             ))}
           </div>
-
-          <div className="mt-6 text-center">
-            <p className="text-gray-300 italic">
-              "The privilege of a lifetime is to become who you truly are."
-            </p>
-            <p className="text-gray-500 text-sm mt-1">— Carl Jung</p>
-          </div>
         </div>
-      </motion.div>
+      </section>
 
-      {/* Quick Actions */}
-      <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-        <motion.div
-          initial={{ opacity: 0, x: -20 }}
-          animate={{ opacity: 1, x: 0 }}
-          transition={{ delay: 0.6 }}
-        >
-          <Link to="/chapters" className="block glass-card p-6 hover:bg-white/10 transition-all group">
-            <div className="flex items-center space-x-4">
-              <div className="p-3 bg-purple-500/20 rounded-lg group-hover:bg-purple-500/30 transition-all">
-                <BookOpen className="w-8 h-8 text-purple-400" />
+      {/* CTA Section */}
+      <section className="py-20 px-6">
+        <div className="max-w-4xl mx-auto">
+          <motion.div 
+            className="glass-card p-12 text-center relative overflow-hidden"
+            initial={{ opacity: 0, scale: 0.95 }}
+            animate={{ opacity: 1, scale: 1 }}
+            transition={{ delay: 0.6 }}
+          >
+            <div className="relative z-10">
+              <div className="flex justify-center mb-6">
+                <Star className="w-12 h-12 text-ocean-400 animate-pulse-glow" />
               </div>
-              <div className="flex-1">
-                <h3 className="text-xl font-semibold text-white mb-1">Continue Your Journey</h3>
-                <p className="text-gray-400">Explore the chapters and deepen your understanding</p>
-              </div>
+              <h2 className="text-3xl md:text-4xl font-bold mb-4 gradient-text">
+                Your Journey Begins Now
+              </h2>
+              <p className="text-lg text-slate-300 mb-8 max-w-2xl mx-auto">
+                Join thousands of seekers on the path to self-discovery and inner transformation.
+                Begin with Chapter I and unlock the hidden aspects of your psyche.
+              </p>
+              <Link to="/chapters" className="btn-primary inline-flex items-center space-x-2">
+                <span>Begin Your Journey</span>
+                <ArrowRight className="w-5 h-5" />
+              </Link>
             </div>
-          </Link>
-        </motion.div>
-
-        <motion.div
-          initial={{ opacity: 0, x: 20 }}
-          animate={{ opacity: 1, x: 0 }}
-          transition={{ delay: 0.7 }}
-        >
-          <Link to="/toolkit" className="block glass-card p-6 hover:bg-white/10 transition-all group">
-            <div className="flex items-center space-x-4">
-              <div className="p-3 bg-pink-500/20 rounded-lg group-hover:bg-pink-500/30 transition-all">
-                <Sparkles className="w-8 h-8 text-pink-400" />
-              </div>
-              <div className="flex-1">
-                <h3 className="text-xl font-semibold text-white mb-1">Alchemist's Toolkit</h3>
-                <p className="text-gray-400">Access journaling, tracking, and reflection tools</p>
-              </div>
-            </div>
-          </Link>
-        </motion.div>
-      </div>
-
-      {/* Recent Journal Entries */}
-      {recentJournals.length > 0 && (
-        <motion.div
-          initial={{ opacity: 0, y: 20 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ delay: 0.8 }}
-          className="glass-card p-8"
-        >
-          <div className="flex items-center justify-between mb-6">
-            <h2 className="text-2xl font-serif font-bold text-white">Recent Reflections</h2>
-            <Link to="/toolkit" className="text-purple-400 hover:text-purple-300 text-sm font-semibold">
-              View All →
-            </Link>
-          </div>
-
-          <div className="space-y-4">
-            {recentJournals.map((entry) => (
-              <div key={entry.id} className="p-4 bg-white/5 rounded-lg border border-white/10">
-                <div className="flex items-start justify-between mb-2">
-                  <h3 className="font-semibold text-white">{entry.title}</h3>
-                  <span className="text-xs text-gray-400">
-                    {new Date(entry.date).toLocaleDateString()}
-                  </span>
-                </div>
-                <p className="text-gray-300 text-sm line-clamp-2">{entry.content}</p>
-              </div>
-            ))}
-          </div>
-        </motion.div>
-      )}
+            
+            {/* Background Glow */}
+            <div className="absolute -top-20 -left-20 w-64 h-64 bg-ocean-500/30 rounded-full blur-3xl"></div>
+            <div className="absolute -bottom-20 -right-20 w-64 h-64 bg-primary-500/30 rounded-full blur-3xl"></div>
+          </motion.div>
+        </div>
+      </section>
     </div>
   );
 };
