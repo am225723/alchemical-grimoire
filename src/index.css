@@ -11,9 +11,9 @@
   
   body {
     @apply bg-slate-950 text-slate-100 font-sans antialiased;
-    background: linear-gradient(135deg, #0f172a 0%, #1e293b 50%, #0f172a 100%);
+    background: linear-gradient(135deg, #0f172a 0%, #1e1b4b 25%, #164e63 50%, #1e1b4b 75%, #0f172a 100%);
     background-size: 400% 400%;
-    animation: gradientShift 15s ease infinite;
+    animation: gradientShift 20s ease infinite;
   }
 
   h1, h2, h3, h4, h5, h6 {
@@ -28,26 +28,26 @@
 
 @layer components {
   .glass-card {
-    @apply bg-slate-900/40 backdrop-blur-xl border border-ocean-500/20 rounded-2xl shadow-glass;
+    @apply bg-slate-900/50 backdrop-blur-2xl border border-ocean-400/30 rounded-2xl shadow-glass;
   }
 
   .glass-card-hover {
-    @apply glass-card hover:bg-slate-900/60 hover:border-ocean-400/30 hover:shadow-glow transition-all duration-300;
+    @apply glass-card hover:bg-slate-900/70 hover:border-purple-400/40 hover:shadow-glow transition-all duration-500;
   }
 
   .gradient-text {
-    @apply bg-gradient-to-r from-ocean-400 via-primary-400 to-secondary-400 bg-clip-text text-transparent;
+    @apply bg-gradient-to-r from-ocean-400 via-purple-400 to-accent-400 bg-clip-text text-transparent animate-gradient;
   }
 
   .btn-primary {
-    @apply px-6 py-3 bg-gradient-to-r from-ocean-600 to-primary-600 text-white font-semibold rounded-xl 
-           hover:from-ocean-500 hover:to-primary-500 transform hover:scale-105 transition-all duration-300 
-           shadow-lg hover:shadow-glow;
+    @apply px-8 py-4 bg-gradient-to-r from-ocean-500 via-purple-600 to-accent-500 text-white font-bold rounded-2xl 
+           hover:from-ocean-400 hover:via-purple-500 hover:to-accent-400 transform hover:scale-105 transition-all duration-500 
+           shadow-glow-lg hover:shadow-glow-purple relative overflow-hidden;
   }
 
   .btn-secondary {
-    @apply px-6 py-3 glass-card text-slate-200 font-semibold rounded-xl 
-           hover:bg-slate-800/60 transform hover:scale-105 transition-all duration-300;
+    @apply px-8 py-4 glass-card text-slate-100 font-bold rounded-2xl border-2 border-ocean-400/50
+           hover:bg-slate-800/70 hover:border-purple-400/70 transform hover:scale-105 transition-all duration-500;
   }
 
   .hover-lift {
@@ -56,6 +56,13 @@
 
   .section-header {
     @apply text-3xl md:text-4xl font-bold mb-6 gradient-text;
+  }
+
+  .nav-link {
+    @apply px-4 py-2.5 rounded-xl text-slate-200 hover:text-white font-semibold flex items-center space-x-2 
+           transition-all duration-300 relative overflow-hidden
+           hover:bg-gradient-to-r hover:from-ocean-500/20 hover:via-purple-500/20 hover:to-accent-500/20
+           hover:shadow-glow;
   }
 }
 

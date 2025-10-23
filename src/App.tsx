@@ -27,44 +27,51 @@ const TopNav = () => {
 
   return (
     <>
-      <nav className="fixed top-0 left-0 right-0 z-50 glass-card border-b border-ocean-500/20">
-        <div className="max-w-7xl mx-auto px-6 py-4">
+      <nav className="fixed top-0 left-0 right-0 z-50 bg-slate-950/80 backdrop-blur-2xl border-b-2 border-transparent bg-clip-padding" style={{
+        background: 'linear-gradient(135deg, rgba(6, 182, 212, 0.15) 0%, rgba(168, 85, 247, 0.15) 50%, rgba(244, 63, 94, 0.15) 100%)',
+        backdropFilter: 'blur(24px)',
+        borderImage: 'linear-gradient(90deg, rgba(6, 182, 212, 0.5), rgba(168, 85, 247, 0.5), rgba(244, 63, 94, 0.5)) 1'
+      }}>
+        <div className="max-w-7xl mx-auto px-6 py-5">
           <div className="flex items-center justify-between">
             {/* Logo */}
-            <Link to="/" className="flex items-center space-x-3 hover-lift">
-              <Sparkles className="w-8 h-8 text-ocean-400" />
-              <span className="text-2xl font-display font-bold gradient-text">
+            <Link to="/" className="flex items-center space-x-3 hover-lift group">
+              <div className="p-2 rounded-xl bg-gradient-to-br from-ocean-500/20 to-purple-500/20 group-hover:from-ocean-400/30 group-hover:to-purple-400/30 transition-all duration-300">
+                <Sparkles className="w-7 h-7 text-ocean-400 group-hover:text-purple-400 transition-colors" />
+              </div>
+              <span className="text-2xl font-display font-bold bg-gradient-to-r from-ocean-300 via-purple-300 to-accent-300 bg-clip-text text-transparent">
                 Alchemical Grimoire
               </span>
             </Link>
 
             {/* Desktop Navigation Links */}
-            <div className="hidden md:flex items-center space-x-8">
-              <Link to="/" className="text-slate-300 hover:text-ocean-400 transition-colors font-medium flex items-center space-x-2">
-                <Home className="w-4 h-4" />
+            <div className="hidden md:flex items-center space-x-2">
+              <Link to="/" className="nav-link group">
+                <Home className="w-5 h-5 group-hover:scale-110 transition-transform" />
                 <span>Home</span>
               </Link>
-              <Link to="/chapters" className="text-slate-300 hover:text-ocean-400 transition-colors font-medium flex items-center space-x-2">
-                <BookOpen className="w-4 h-4" />
+              <Link to="/chapters" className="nav-link group">
+                <BookOpen className="w-5 h-5 group-hover:scale-110 transition-transform" />
                 <span>Chapters</span>
               </Link>
-              <Link to="/archetypes" className="text-slate-300 hover:text-ocean-400 transition-colors font-medium flex items-center space-x-2">
-                <Compass className="w-4 h-4" />
+              <Link to="/archetypes" className="nav-link group">
+                <Compass className="w-5 h-5 group-hover:scale-110 transition-transform" />
                 <span>Archetypes</span>
               </Link>
-              <Link to="/toolkit" className="text-slate-300 hover:text-ocean-400 transition-colors font-medium flex items-center space-x-2">
-                <Wrench className="w-4 h-4" />
+              <Link to="/toolkit" className="nav-link group">
+                <Wrench className="w-5 h-5 group-hover:scale-110 transition-transform" />
                 <span>Toolkit</span>
               </Link>
-              <Link to="/community" className="text-slate-300 hover:text-ocean-400 transition-colors font-medium flex items-center space-x-2">
-                <Users className="w-4 h-4" />
+              <Link to="/community" className="nav-link group">
+                <Users className="w-5 h-5 group-hover:scale-110 transition-transform" />
                 <span>Community</span>
               </Link>
             </div>
 
             {/* Desktop CTA Button */}
-            <Link to="/chapters" className="hidden md:block btn-primary">
-              Start Journey
+            <Link to="/chapters" className="hidden md:block px-6 py-3 bg-gradient-to-r from-ocean-500 via-purple-600 to-accent-500 text-white font-bold rounded-xl hover:from-ocean-400 hover:via-purple-500 hover:to-accent-400 transform hover:scale-105 transition-all duration-300 shadow-glow relative overflow-hidden group">
+              <span className="relative z-10">Start Journey</span>
+              <div className="absolute inset-0 bg-shimmer opacity-0 group-hover:opacity-100 group-hover:animate-shimmer"></div>
             </Link>
 
             {/* Mobile Menu Button */}
@@ -148,7 +155,7 @@ function App() {
           <TopNav />
           
           {/* Main Content with top padding for fixed nav */}
-          <main className="pt-20">
+          <main className="pt-28">
             <Routes>
               {/* Home Route */}
               <Route path="/" element={<Dashboard />} />
