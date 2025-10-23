@@ -53,6 +53,24 @@ src/
 - **Navigation**: Enhanced sidebar with glass-card-glow effects, decorative gradients, animated logo, improved user info card with shimmer effects, and glowing navigation items
 - **UI Components**: Built comprehensive library of reusable components (GlassCard, GradientText, IconButton, Badge, AnimatedCard, FeatureCard, ProgressBar, StatCard, Spinner, FloatingIcon, SectionHeader, Tooltip) with full interactivity support
 
+### Sidebar Collapse & Page Integration Update
+- **Collapsible Sidebar**: Added desktop collapse functionality with smooth animations
+  - Toggle button with chevron icons (ChevronLeft/ChevronRight)
+  - Sidebar transitions between 320px (expanded) and 80px (collapsed)
+  - Icon-only view when collapsed with hover tooltips for navigation items
+  - Condensed user info card (gem icon only) in collapsed state
+  - Section headers and footer hidden when collapsed
+- **Dynamic Layout**: Main content padding adjusts automatically (lg:pl-80 expanded, lg:pl-20 collapsed) with smooth transitions
+- **Page Routes**: Connected all actual page components replacing placeholders
+  - Dashboard (/) - Main landing page with progress overview
+  - Chapters (/chapters) - Chapter selection and progress tracking
+  - ChapterDetail (/chapter/:id) - Individual chapter content
+  - Toolkit (/toolkit) - Interactive tools and exercises
+  - Archetypes (/archetypes) - Archetype explorer
+  - Community (/community) - Community sharing features
+  - Settings (/settings) - Settings page (Coming Soon)
+- **Improved UX**: All "Coming Soon" placeholders styled with glass-card effects for consistency
+
 ## Data Persistence
 All user data stored in browser localStorage:
 - User progress and stats
