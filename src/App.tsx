@@ -35,8 +35,8 @@ function App() {
         <div className="min-h-screen bg-gradient-to-br from-purple-900 via-blue-900 to-indigo-900">
           <EnhancedNavigation isCollapsed={sidebarCollapsed} onToggleCollapse={toggleSidebar} />
 
-          {/* Main Content - Desktop padding adjusts based on sidebar state */}
-          <main className={`pt-16 lg:pt-0 transition-all duration-300 ${sidebarCollapsed ? 'lg:pl-20' : 'lg:pl-80'}`}>
+          {/* Main Content - Desktop margin adjusts based on sidebar state */}
+          <main className={`min-h-screen pt-16 lg:pt-0 transition-all duration-300 ${sidebarCollapsed ? 'lg:ml-20' : 'lg:ml-80'}`}>
             <div className="p-6 lg:p-8">
               <Routes>
                 {/* Home Route */}
