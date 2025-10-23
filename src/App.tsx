@@ -32,13 +32,17 @@ function App() {
   return (
     <Router>
       <AppProvider>
-        <div className="min-h-screen bg-gradient-to-br from-purple-900 via-blue-900 to-indigo-900">
+        <div 
+          className="min-h-screen bg-gradient-to-br from-purple-900 via-blue-900 to-indigo-900"
+          style={{
+            '--sidebar-width': sidebarCollapsed ? '80px' : '320px'
+          } as React.CSSProperties}
+        >
           <EnhancedNavigation isCollapsed={sidebarCollapsed} onToggleCollapse={toggleSidebar} />
 
           {/* Main Content - Desktop margin adjusts based on sidebar state */}
           <main 
-            className="min-h-screen transition-all duration-300 relative z-10"
-            style={{ marginLeft: sidebarCollapsed ? '80px' : '320px' }}
+            className="min-h-screen transition-all duration-300 relative z-10 lg:ml-[var(--sidebar-width)]"
           >
             <div className="px-6 lg:px-8 py-6"> 
               <Routes>

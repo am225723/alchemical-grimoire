@@ -275,8 +275,11 @@ const EnhancedNavigation: React.FC<EnhancedNavigationProps> = ({ isCollapsed, on
 
       {/* Sidebar */}
       <aside
-        className="fixed top-0 left-0 bottom-0 z-50 glass-card-glow border-r border-purple-500/30 transition-all duration-300 shadow-glow"
-        style={{ width: isCollapsed ? '80px' : '320px' }}
+        className={`fixed top-0 left-0 bottom-0 z-50 glass-card-glow border-r border-purple-500/30 shadow-glow
+          transition-all duration-300
+          ${sidebarOpen ? 'translate-x-0' : '-translate-x-full lg:translate-x-0'}
+          w-80 lg:w-[var(--sidebar-width)]
+        `}
       >
         <div className="flex flex-col h-full p-6 relative">
           {/* Decorative gradient overlay */}
