@@ -100,7 +100,7 @@ const AIPatternRecognition: React.FC<AIPatternRecognitionProps> = ({
           id: '4',
           type: 'relational',
           title: 'Rescuer Dynamics',
-          description: 'Pattern of taking on responsibility for others' emotions and problems, often at personal expense.',
+          description: 'Pattern of taking on responsibility for others\' emotions and problems, often at personal expense.',
           frequency: 5,
           confidence: 0.78,
           impact: 'medium',
@@ -113,11 +113,11 @@ const AIPatternRecognition: React.FC<AIPatternRecognitionProps> = ({
           ],
           relatedPatterns: ['people-pleasing', 'lack of boundaries']
         }
-  ];
+      ];
 
       // Simulate processing delay
       await new Promise(resolve => setTimeout(resolve, 2000));
-      
+
       setDetectedPatterns(mockPatterns);
     } catch (error) {
       console.error('Error analyzing patterns:', error);
@@ -161,7 +161,7 @@ const AIPatternRecognition: React.FC<AIPatternRecognitionProps> = ({
     return 'text-orange-400';
   };
 
-  const filteredPatterns = detectedPatterns.filter(pattern => 
+  const filteredPatterns = detectedPatterns.filter(pattern =>
     filter === 'all' || pattern.type === filter
   );
 
@@ -189,7 +189,7 @@ const AIPatternRecognition: React.FC<AIPatternRecognitionProps> = ({
         averageConfidence: detectedPatterns.reduce((acc, p) => acc + p.confidence, 0) / detectedPatterns.length
       }
     };
-    
+
     const blob = new Blob([JSON.stringify(report, null, 2)], { type: 'application/json' });
     const url = URL.createObjectURL(blob);
     const a = document.createElement('a');
@@ -287,7 +287,7 @@ const AIPatternRecognition: React.FC<AIPatternRecognitionProps> = ({
           <div className="lg:col-span-2">
             <div className="glass-card h-[600px] rounded-2xl p-6 overflow-y-auto">
               <h3 className="text-xl font-semibold text-white mb-6">Detected Patterns</h3>
-              
+
               {isAnalyzing ? (
                 <div className="flex items-center justify-center h-[400px]">
                   <div className="text-center">
@@ -338,9 +338,9 @@ const AIPatternRecognition: React.FC<AIPatternRecognitionProps> = ({
                             </div>
                           </div>
                         </div>
-                        
+
                         <p className="text-gray-300 text-sm mb-4 line-clamp-2">{pattern.description}</p>
-                        
+
                         <div className="flex items-center justify-between">
                           <div className="flex items-center space-x-4">
                             <div className="flex items-center space-x-1">
@@ -355,7 +355,7 @@ const AIPatternRecognition: React.FC<AIPatternRecognitionProps> = ({
                             </div>
                           </div>
                           <div className="w-20 bg-white/10 rounded-full h-2">
-                            <div 
+                            <div
                               className="bg-gradient-to-r from-purple-600 to-blue-600 h-2 rounded-full"
                               style={{ width: `${pattern.confidence * 100}%` }}
                             />
@@ -384,13 +384,13 @@ const AIPatternRecognition: React.FC<AIPatternRecognitionProps> = ({
                       <p className="text-gray-400 text-sm capitalize">{selectedPattern.type} pattern</p>
                     </div>
                   </div>
-                  
+
                   <div className="space-y-4">
                     <div>
                       <p className="text-gray-400 text-sm mb-2">Description</p>
                       <p className="text-gray-300 text-sm">{selectedPattern.description}</p>
                     </div>
-                    
+
                     <div className="grid grid-cols-3 gap-4">
                       <div className="text-center">
                         <p className={`text-lg font-bold ${getImpactColor(selectedPattern.impact)}`}>
