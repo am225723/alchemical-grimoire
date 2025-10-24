@@ -3,7 +3,7 @@ import { motion, AnimatePresence } from 'framer-motion';
 import { Sparkles, Loader2, TrendingUp, BookOpen } from 'lucide-react';
 import aiService from '../../services/aiService';
 
-export const DailyJournalAnalyzer: React.FC = () => {
+const DailyJournalAnalyzer: React.FC = () => {
   const [journalEntry, setJournalEntry] = useState('');
   const [isAnalyzing, setIsAnalyzing] = useState(false);
   const [analysis, setAnalysis] = useState<any>(null);

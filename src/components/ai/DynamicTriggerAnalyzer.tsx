@@ -3,7 +3,7 @@ import { motion, AnimatePresence } from 'framer-motion';
 import { Zap, Loader2, Lightbulb, ArrowRight } from 'lucide-react';
 import aiService from '../../services/aiService';
 
-export const DynamicTriggerAnalyzer: React.FC = () => {
+const DynamicTriggerAnalyzer: React.FC = () => {
   const [story, setStory] = useState('');
   const [isAnalyzing, setIsAnalyzing] = useState(false);
   const [analysis, setAnalysis] = useState<any>(null);
