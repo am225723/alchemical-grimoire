@@ -9,7 +9,6 @@ import {
   Moon, 
   Compass, 
   BookOpen, 
-  Users,
   ArrowRight,
   Gem,
   Zap,

@@ -72,7 +72,7 @@ const RelationshipPatternMapping: React.FC<RelationshipPatternMappingProps> = ({
       type: 'pattern',
       intensity: pattern.impact === 'high' ? 0.9 : pattern.impact === 'medium' ? 0.6 : 0.3,
       // Ensure aspect IDs are unique by including pattern context
-      connections: pattern.relatedAspects.map((aspect, i) => `aspect-${pattern.type}-${index}-${i}`),
+      connections: pattern.relatedAspects.map((_, i) => `aspect-${pattern.type}-${index}-${i}`),
       description: pattern.description
     }));
 
@@ -93,7 +93,7 @@ const RelationshipPatternMapping: React.FC<RelationshipPatternMappingProps> = ({
 
 
     const patternConnections: Connection[] = analysis.patterns.flatMap((pattern, pIndex) =>
-      pattern.relatedAspects.map((aspect, aIndex) => ({
+      pattern.relatedAspects.map((_, aIndex) => ({
         // Ensure source and target IDs match node IDs
         source: `${pattern.type}-${pIndex}`,
         target: `aspect-${pattern.type}-${pIndex}-${aIndex}`,

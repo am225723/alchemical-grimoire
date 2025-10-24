@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
-import { Calendar, MapPin, TrendingUp, Award, Sparkles, Plus, Edit, Trash2, ChevronRight, Heart, Brain, Eye, Target } from 'lucide-react'; //
+import { Calendar, MapPin, TrendingUp, Award, Sparkles, Plus, Trash2, ChevronRight, Heart, Brain, Eye, Target } from 'lucide-react';
 import { useAIService, TimelineEvent } from '../../services/aiService'; //
 
 interface TransformationTimelineProps {

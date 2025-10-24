@@ -98,15 +98,6 @@ const ImmersiveShadowDialogue: React.FC<ImmersiveShadowDialogueProps> = ({
     }
   };
 
-  const getToneColor = (tone?: string) => {
-    switch (tone) {
-      case 'supportive': return 'text-blue-400';
-      case 'challenging': return 'text-orange-400';
-      case 'empathetic': return 'text-purple-400';
-      default: return 'text-gray-300';
-    }
-  };
-
   const getToneIcon = (tone?: string) => {
     switch (tone) {
       case 'supportive': return <Heart className="w-4 h-4" />;

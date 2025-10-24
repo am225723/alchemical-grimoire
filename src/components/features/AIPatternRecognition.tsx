@@ -1,7 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { Brain, Eye, TrendingUp, AlertTriangle, Heart, Target, Zap, RefreshCw, Download, Filter } from 'lucide-react';
-import { useAIService, PatternAnalysis, RelationshipPattern } from '../../services/aiService';
 
 interface AIPatternRecognitionProps {
   onClose?: () => void;
@@ -25,7 +24,6 @@ interface DetectedPattern {
 
 const AIPatternRecognition: React.FC<AIPatternRecognitionProps> = ({
   onClose,
-  userData = {},
   journalData = []
 }) => {
   const [isAnalyzing, setIsAnalyzing] = useState(false);
