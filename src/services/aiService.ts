@@ -1,4 +1,4 @@
-import { useEffect, useState } from 'react';
+import { useState } from 'react';
 
 // AI Service Interfaces
 export interface DialogueResponse {
@@ -84,7 +84,7 @@ class AIService {
       return await response.json();
     } catch (error) {
       console.error('AI Service Error:', error);
-      return this.getFallbackResponse(userMessage);
+      return this.getFallbackResponse();
     }
   }
   
@@ -175,7 +175,7 @@ class AIService {
   }
   
   // Fallback Methods for Offline Mode
-  private getFallbackResponse(userMessage: string): DialogueResponse {
+  private getFallbackResponse(): DialogueResponse {
     const fallbackResponses = [
       {
         message: "I notice you're sharing something important. What emotions come up as you reflect on this?",

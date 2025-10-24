@@ -1,7 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
-import { Heart, Brain, Sparkles, Moon, Sun, Eye, Zap, Play, Pause, RotateCw, Download, Share2, Volume2 } from 'lucide-react';
-import { useAIService } from '../../services/aiService';
+import { Heart, Brain, Sparkles, Moon, Sun, Eye, Zap, Play, Pause, RotateCw, Share2, Volume2 } from 'lucide-react';
 
 interface IntegrationPhase {
   id: string;
@@ -25,12 +24,10 @@ interface IntegrationExercise {
 
 interface ImmersiveShadowIntegrationProps {
   onClose?: () => void;
-  userLevel?: 'beginner' | 'intermediate' | 'advanced';
 }
 
 const ImmersiveShadowIntegration: React.FC<ImmersiveShadowIntegrationProps> = ({
-  onClose,
-  userLevel = 'intermediate'
+  onClose
 }) => {
   const [currentPhase, setCurrentPhase] = useState<IntegrationPhase | null>(null);
   const [currentExercise, setCurrentExercise] = useState<IntegrationExercise | null>(null);
@@ -170,7 +167,7 @@ const ImmersiveShadowIntegration: React.FC<ImmersiveShadowIntegrationProps> = ({
   }, [currentPhase]);
 
   useEffect(() => {
-    let interval: NodeJS.Timeout;
+    let interval: ReturnType<typeof setInterval>;
     if (isPlaying && timeRemaining > 0) {
       interval = setInterval(() => {
         setTimeRemaining(prev => {
@@ -404,59 +401,61 @@ const ImmersiveShadowIntegration: React.FC<ImmersiveShadowIntegrationProps> = ({
                 </div>
 
                 {/* Exercise Content */}
-                <div className="relative z-10 text-center">
-                  <div className="mb-8">
-                    <div className="flex items-center justify-center space-x-3 mb-6">
-                      {getExerciseIcon(currentExercise.type)}
-                      <h3 className="text-2xl font-bold text-white">{currentExercise.title}</h3>
+                {currentExercise && (
+                  <div className="relative z-10 text-center">
+                    <div className="mb-8">
+                      <div className="flex items-center justify-center space-x-3 mb-6">
+                        {getExerciseIcon(currentExercise.type)}
+                        <h3 className="text-2xl font-bold text-white">{currentExercise.title}</h3>
+                      </div>
+                      <p className="text-xl text-gray-200 mb-8">{currentExercise.instruction}</p>
                     </div>
-                    <p className="text-xl text-gray-200 mb-8">{currentExercise.instruction}</p>
-                  </div>
 
-                  {/* Prompts */}
-                  {currentExercise.prompts && (
-                    <div className="mb-8 space-y-3">
-                      {currentExercise.prompts.map((prompt, index) => (
-                        <div key={index} className="inline-block p-3 rounded-lg bg-white/10 border border-white/20">
-                          <p className="text-gray-200 italic">"{prompt}"</p>
-                        </div>
-                      ))}
+                    {/* Prompts */}
+                    {currentExercise.prompts && (
+                      <div className="mb-8 space-y-3">
+                        {currentExercise.prompts.map((prompt, index) => (
+                          <div key={index} className="inline-block p-3 rounded-lg bg-white/10 border border-white/20">
+                            <p className="text-gray-200 italic">"{prompt}"</p>
+                          </div>
+                        ))}
+                      </div>
+                    )}
+
+                    {/* Timer */}
+                    <div className="mb-8">
+                      <div className="text-6xl font-bold text-white mb-2">{formatTime(timeRemaining)}</div>
+                      <div className="w-64 h-2 mx-auto bg-white/10 rounded-full">
+                        <div 
+                          className="h-full bg-gradient-to-r from-purple-600 to-pink-600 rounded-full transition-all duration-1000"
+                          style={{ 
+                            width: `${((currentExercise.duration * 60 - timeRemaining) / (currentExercise.duration * 60)) * 100}%` 
+                          }}
+                        />
+                      </div>
                     </div>
-                  )}
 
-                  {/* Timer */}
-                  <div className="mb-8">
-                    <div className="text-6xl font-bold text-white mb-2">{formatTime(timeRemaining)}</div>
-                    <div className="w-64 h-2 mx-auto bg-white/10 rounded-full">
-                      <div 
-                        className="h-full bg-gradient-to-r from-purple-600 to-pink-600 rounded-full transition-all duration-1000"
-                        style={{ 
-                          width: `${((currentExercise.duration * 60 - timeRemaining) / (currentExercise.duration * 60)) * 100}%` 
+                    {/* Controls */}
+                    <div className="flex items-center justify-center space-x-4">
+                      <button
+                        onClick={togglePlayPause}
+                        className="p-4 rounded-full bg-purple-600 hover:bg-purple-700 text-white transition-colors"
+                      >
+                        {isPlaying ? <Pause className="w-6 h-6" /> : <Play className="w-6 h-6" />}
+                      </button>
+                      <button
+                        onClick={() => {
+                          setCurrentPhase(null);
+                          setCurrentExercise(null);
+                          setIsPlaying(false);
                         }}
-                      />
+                        className="p-3 rounded-lg bg-white/10 hover:bg-white/20 text-white transition-colors"
+                      >
+                        Exit Session
+                      </button>
                     </div>
                   </div>
-
-                  {/* Controls */}
-                  <div className="flex items-center justify-center space-x-4">
-                    <button
-                      onClick={togglePlayPause}
-                      className="p-4 rounded-full bg-purple-600 hover:bg-purple-700 text-white transition-colors"
-                    >
-                      {isPlaying ? <Pause className="w-6 h-6" /> : <Play className="w-6 h-6" />}
-                    </button>
-                    <button
-                      onClick={() => {
-                        setCurrentPhase(null);
-                        setCurrentExercise(null);
-                        setIsPlaying(false);
-                      }}
-                      className="p-3 rounded-lg bg-white/10 hover:bg-white/20 text-white transition-colors"
-                    >
-                      Exit Session
-                    </button>
-                  </div>
-                </div>
+                )}
               </div>
             </div>
 
@@ -468,42 +467,48 @@ const ImmersiveShadowIntegration: React.FC<ImmersiveShadowIntegrationProps> = ({
                 <div className="mb-4">
                   <p className="text-gray-400 text-sm mb-2">{currentPhase.name}</p>
                   <div className="flex items-center space-x-2">
-                    {currentPhase.exercises.map((exercise, index) => (
-                      <div
-                        key={exercise.id}
-                        className={`flex-1 h-2 rounded-full ${
-                          exercise.id === currentExercise.id
-                            ? 'bg-purple-400'
-                            : currentPhase.exercises.indexOf(currentExercise) > index
-                            ? 'bg-green-400'
-                            : 'bg-white/10'
-                        }`}
-                      />
-                    ))}
+                    {currentPhase.exercises.map((exercise, index) => {
+                      const currentExerciseIndex = currentExercise ? currentPhase.exercises.indexOf(currentExercise) : -1;
+                      return (
+                        <div
+                          key={exercise.id}
+                          className={`flex-1 h-2 rounded-full ${
+                            currentExercise && exercise.id === currentExercise.id
+                              ? 'bg-purple-400'
+                              : currentExerciseIndex > index
+                              ? 'bg-green-400'
+                              : 'bg-white/10'
+                          }`}
+                        />
+                      );
+                    })}
                   </div>
                 </div>
                 <div className="space-y-2">
-                  {currentPhase.exercises.map((exercise, index) => (
-                    <div
-                      key={exercise.id}
-                      className={`flex items-center space-x-3 p-2 rounded-lg ${
-                        exercise.id === currentExercise.id
-                          ? 'bg-purple-600/30'
-                          : currentPhase.exercises.indexOf(currentExercise) > index
-                          ? 'bg-green-400/10'
-                          : 'bg-white/5'
-                      }`}
-                    >
-                      {getExerciseIcon(exercise.type)}
-                      <div className="flex-1">
-                        <p className="text-white text-sm">{exercise.title}</p>
-                        <p className="text-gray-400 text-xs">{exercise.duration} min</p>
+                  {currentPhase.exercises.map((exercise, index) => {
+                    const currentExerciseIndex = currentExercise ? currentPhase.exercises.indexOf(currentExercise) : -1;
+                    return (
+                      <div
+                        key={exercise.id}
+                        className={`flex items-center space-x-3 p-2 rounded-lg ${
+                          currentExercise && exercise.id === currentExercise.id
+                            ? 'bg-purple-600/30'
+                            : currentExerciseIndex > index
+                            ? 'bg-green-400/10'
+                            : 'bg-white/5'
+                        }`}
+                      >
+                        {getExerciseIcon(exercise.type)}
+                        <div className="flex-1">
+                          <p className="text-white text-sm">{exercise.title}</p>
+                          <p className="text-gray-400 text-xs">{exercise.duration} min</p>
+                        </div>
+                        {currentExerciseIndex > index && (
+                          <Sparkles className="w-4 h-4 text-green-400" />
+                        )}
                       </div>
-                      {currentPhase.exercises.indexOf(currentExercise) > index && (
-                        <Sparkles className="w-4 h-4 text-green-400" />
-                      )}
-                    </div>
-                  ))}
+                    );
+                  })}
                 </div>
               </div>
 

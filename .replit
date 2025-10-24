@@ -60,4 +60,4 @@ externalPort = 3003
 [deployment]
 deploymentTarget = "autoscale"
 run = ["npx", "vite", "preview", "--host", "0.0.0.0"]
-build = ["npm", "run", "build"]
+build = ["sh", "-c", "npm run build"]

@@ -124,11 +124,12 @@ export const Badge: React.FC<BadgeProps> = ({
 };
 
 // Animated Card Component
-interface AnimatedCardProps extends React.HTMLAttributes<HTMLDivElement> {
+interface AnimatedCardProps {
   children: ReactNode;
   delay?: number;
   className?: string;
   glow?: boolean;
+  onClick?: () => void;
 }
 
 export const AnimatedCard: React.FC<AnimatedCardProps> = ({
@@ -136,7 +137,7 @@ export const AnimatedCard: React.FC<AnimatedCardProps> = ({
   delay = 0,
   className = '',
   glow = false,
-  ...props
+  onClick
 }) => {
   return (
     <motion.div
@@ -146,7 +147,7 @@ export const AnimatedCard: React.FC<AnimatedCardProps> = ({
       transition={{ delay, duration: 0.5 }}
       whileHover={{ scale: 1.05, y: -10 }}
       className={`${glow ? 'glass-card-glow' : 'glass-card'} hover-lift ${className}`}
-      {...props}
+      onClick={onClick}
     >
       {children}
     </motion.div>
