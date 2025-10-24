@@ -10,6 +10,12 @@ interface AuthenticityScore {
   strengths: string[];
   growthAreas: string[];
   insights: string[];
+  categories: {
+    emotional: number;
+    behavioral: number;
+    cognitive: number;
+    social: number;
+  };
 }
 
 interface Question {
@@ -119,13 +125,36 @@ const AuthenticSelfDiscovery: React.FC<AuthenticSelfDiscoveryProps> = ({ onClose
   const handleSubmitAssessment = async () => {
     setIsAnalyzing(true);
     try {
-      // Corrected: Pass responses as the first argument, which aiService expects as any[] based on error TS2345
-      // This might need adjustment in aiService.ts if responses shouldn't be an array
-      const score = await aiService.assessAuthenticity(
-        Object.values(responses), // Pass values as an array
-        [], // behaviors data would come from user tracking
-        ['authenticity', 'self-expression', 'vulnerability', 'integrity'] // sample values
-      );
+      // Calculate authenticity score based on responses
+      const categoryScores = { emotional: 0, behavioral: 0, cognitive: 0, social: 0 };
+      const categoryCounts = { emotional: 0, behavioral: 0, cognitive: 0, social: 0 };
+      
+      Object.entries(responses).forEach(([questionId, value]) => {
+        const question = questions.find(q => q.id === questionId);
+        if (question && typeof value === 'number') {
+          categoryScores[question.category] += value * question.weight;
+          categoryCounts[question.category] += question.weight;
+        }
+      });
+      
+      const emotional = categoryCounts.emotional > 0 ? (categoryScores.emotional / categoryCounts.emotional) : 0;
+      const behavioral = categoryCounts.behavioral > 0 ? (categoryScores.behavioral / categoryCounts.behavioral) : 0;
+      const cognitive = categoryCounts.cognitive > 0 ? (categoryScores.cognitive / categoryCounts.cognitive) : 0;
+      const social = categoryCounts.social > 0 ? (categoryScores.social / categoryCounts.social) : 0;
+      const overall = (emotional + behavioral + cognitive + social) / 4;
+      
+      const score: AuthenticityScore = {
+        overall,
+        emotional,
+        behavioral,
+        cognitive,
+        social,
+        categories: { emotional, behavioral, cognitive, social },
+        strengths: overall >= 60 ? ['Self-awareness', 'Emotional honesty'] : ['Openness to growth'],
+        growthAreas: overall < 60 ? ['Self-expression', 'Boundary setting'] : [],
+        insights: ['Continue exploring your authentic self through daily reflection.']
+      };
+      
       setAuthenticityScore(score);
       setCurrentStep('results');
     } catch (error) {

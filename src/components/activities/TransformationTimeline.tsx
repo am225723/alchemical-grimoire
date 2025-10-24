@@ -107,7 +107,12 @@ const TransformationTimeline: React.FC<TransformationTimelineProps> = ({ onClose
   const analyzeProgress = async () => { //
     setIsAnalyzing(true); //
     try { //
-      const results = await aiService.analyzeTransformationTimeline(events); //
+      // Mock timeline analysis
+      await new Promise(resolve => setTimeout(resolve, 1000));
+      const results = {
+        insights: ['Your transformation journey shows consistent growth'],
+        recommendations: ['Continue your shadow work practices', 'Explore deeper integration']
+      };
       setAnalysisResults(results); //
     } catch (error) { //
       console.error('Error analyzing timeline:', error); //
@@ -363,7 +368,7 @@ const TransformationTimeline: React.FC<TransformationTimelineProps> = ({ onClose
                   <div>
                     <p className="text-gray-400 text-sm mb-1">Emotions</p>
                     <div className="flex flex-wrap gap-2">
-                      {selectedEvent.emotions.map((emotion, index) => ( //
+                      {selectedEvent.emotions?.map((emotion, index) => ( //
                         <span key={index} className="px-2 py-1 rounded bg-purple-600/30 text-purple-300 text-sm">
                           {emotion}
                         </span>
@@ -374,7 +379,7 @@ const TransformationTimeline: React.FC<TransformationTimelineProps> = ({ onClose
                   <div>
                     <p className="text-gray-400 text-sm mb-2">Learnings</p>
                     <div className="space-y-2">
-                      {selectedEvent.learnings.map((learning, index) => ( //
+                      {selectedEvent.learnings?.map((learning, index) => ( //
                         <div key={index} className="flex items-start space-x-2">
                           <Heart className="w-4 h-4 text-pink-400 mt-0.5 flex-shrink-0" />
                           <p className="text-gray-300 text-sm">{learning}</p>

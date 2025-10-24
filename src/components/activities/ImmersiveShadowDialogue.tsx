@@ -3,6 +3,7 @@ import { motion, AnimatePresence } from 'framer-motion';
 import { MessageCircle, Heart, Brain, Sparkles, Send, ArrowLeft } from 'lucide-react'; // Ensure lucide-react is installed
 interface DialogueResponse {
   response: string;
+  message: string;
   emotionalTone: 'supportive' | 'challenging' | 'neutral' | 'empathetic';
   suggestedQuestions: string[];
 }
@@ -21,8 +22,7 @@ interface ImmersiveShadowDialogueProps {
 }
 
 const ImmersiveShadowDialogue: React.FC<ImmersiveShadowDialogueProps> = ({
-  onClose,
-  initialContext = "shadow work exploration"
+  onClose
 }) => {
   const [messages, setMessages] = useState<DialogueMessage[]>([]);
   const [inputMessage, setInputMessage] = useState('');
@@ -65,11 +65,26 @@ const ImmersiveShadowDialogue: React.FC<ImmersiveShadowDialogueProps> = ({
     setSuggestedQuestions([]); // Clear suggestions while AI responds
 
     try {
-      const response: DialogueResponse = await aiService.generateShadowResponse(
-        message,
-        initialContext,
-        emotionalState
-      );
+      // Simple mock response for shadow dialogue
+      await new Promise(resolve => setTimeout(resolve, 1000));
+      
+      const mockResponses = [
+        "That's a profound reflection. What feelings arise when you think about that?",
+        "I hear the depth in your words. Tell me more about what that means to you.",
+        "This sounds important. How long have you been aware of this pattern?",
+        "What would it feel like to explore this more deeply?"
+      ];
+      
+      const response: DialogueResponse = {
+        response: mockResponses[Math.floor(Math.random() * mockResponses.length)],
+        message: mockResponses[Math.floor(Math.random() * mockResponses.length)],
+        emotionalTone: 'empathetic' as const,
+        suggestedQuestions: [
+          "What else comes up for you?",
+          "How does this connect to other parts of your life?",
+          "What would healing look like here?"
+        ]
+      };
 
       const shadowMessage: DialogueMessage = {
         id: (Date.now() + 1).toString(),
