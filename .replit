@@ -1,6 +1,7 @@
 modules = ["nodejs-20", "web"]
 [agent]
 expertMode = true
+integrations = ["perplexity_v0:1.0.0", "javascript_openai:1.0.0"]
 
 [nix]
 channel = "stable-25_05"
