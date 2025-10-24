@@ -118,6 +118,94 @@ Multi-color vibrant palette with cosmic/ocean themes:
 
 ## Recent Changes (October 24, 2025)
 
+### Interactive Archetype Activities Implementation (October 24, 2025 - Latest)
+
+**Comprehensive Shadow Work Activities**
+Added highly interactive, engaging activities for all 6 shadow archetypes based on professional curriculum:
+
+**New Components Created:**
+1. **TyrantActivity** - Control-Fear Matrix
+   - Two-column dynamic form mapping control behaviors to underlying fears
+   - Add/delete entries with smooth animations
+   - Helps users shift from self-judgment to self-compassion
+   - localStorage persistence
+
+2. **VictimActivity** - Victim-to-Victor Reframer
+   - Multi-step guided reframing journey (4 steps with progress bar)
+   - Transforms helplessness into agency
+   - Saves "Victor Statements" for review
+   - Step-by-step process: victim thought → find control → small action → power statement
+
+3. **MartyrActivity** - Yes/No Need Sorter
+   - Trello-style drag-and-drop card sorter
+   - Three buckets: Joyful Yes, Boundaried No, Martyr Yes
+   - 10 common scenarios to sort
+   - Real-time insights showing "Martyr pile" count
+   - Tap-to-move on mobile, drag on desktop
+
+4. **SaboteurActivity** - Letter from Your Saboteur
+   - Guided template for externalizing the saboteur voice
+   - Fill-in-the-blank prompts with deep psychological insight
+   - Shifts perspective from fighting to reassuring the saboteur
+   - Saves complete letters for review
+
+5. **JudgeActivity** - Judgment Tracker & Reframe
+   - Logging tool with four-part analysis
+   - Mirror: Where is this true for you?
+   - Fear: What does this protect you from?
+   - Gold: What hidden value is beneath this?
+   - Transforms harsh judgments into wisdom
+
+6. **RebelActivity** - Reactive vs. Authentic "No" Quiz
+   - Tinder-style swipe interface (or tap buttons)
+   - 8 scenarios testing reactive vs. authentic responses
+   - Instant feedback after each choice
+   - Final profile showing shadow/gold rebel ratio
+   - Real-time pattern identification
+
+**Archetypes Page Enhancements:**
+- Added tab system to archetype modals (Overview + Interactive Activity)
+- Smooth Framer Motion transitions between tabs
+- "Begin Interactive Activity" CTA button in overview
+- Each archetype seamlessly integrates its unique activity
+
+**Inner Council Dashboard (Module 8):**
+- New dedicated page at `/inner-council`
+- Weekly check-in system with 6 archetype volume sliders (0-100%)
+- Dynamic insights based on loudest archetypes
+- Primary + secondary archetype recommendations
+- Integration tool suggestions (e.g., "Use Control-Fear Matrix")
+- Pattern insights based on overall activity levels
+- Check-in history with top archetype tracking
+- Full localStorage persistence
+
+**Navigation Updates:**
+- Added "Inner Council" link to top navigation (desktop + mobile)
+- Uses Users2 icon for visual distinction
+- Positioned between Archetypes and Toolkit
+
+**Technical Implementation:**
+- All activities use localStorage for data persistence
+- Smooth Framer Motion animations throughout
+- Responsive mobile design with touch-friendly interactions
+- Advanced UI patterns: drag-drop, swipe gestures, multi-step forms
+- Real-time feedback and dynamic insights
+- TypeScript strict mode compliance
+- Proper null safety and type checking
+
+**User Experience:**
+- Activities are highly interactive, not just static forms
+- Immediate visual feedback on all interactions
+- Clear progress indicators and success states
+- Data saves automatically (no "save" button friction)
+- Beautiful cosmic gradient aesthetic throughout
+- Accessible on all devices
+
+**Status**: ✅ All 6 archetype activities functional and highly interactive
+**Architect Review**: ✅ PASS - Meets "highly interactive" curriculum requirements
+
+## Recent Changes (October 24, 2025)
+
 ### TypeScript Compilation Fixes (Latest)
 
 **Deployment Build Errors Resolved**
