@@ -5,7 +5,7 @@ import OpenAI from 'openai';
 
 // the newest OpenAI model is "gpt-5" which was released August 7, 2025. do not change this unless explicitly requested by the user
 const openai = new OpenAI({ 
-  apiKey: import.meta.env.VITE_OPENAI_API_KEY || process.env.OPENAI_API_KEY 
+  apiKey: import.meta.env.VITE_OPENAI_API_KEY
 });
 
 // ===== TYPE DEFINITIONS =====
