@@ -1,7 +1,17 @@
 import React, { useState, useEffect } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { Calendar, MapPin, TrendingUp, Award, Sparkles, Plus, Trash2, ChevronRight, Heart, Brain, Eye, Target } from 'lucide-react';
-import { useAIService, TimelineEvent } from '../../services/aiService'; //
+interface TimelineEvent {
+  id: string;
+  date: Date;
+  title: string;
+  description: string;
+  type: 'breakthrough' | 'challenge' | 'reflection' | 'integration';
+  impact?: number;
+  emotions?: string[];
+  learnings?: string[];
+  relatedArchetypes?: string[];
+} //
 
 interface TransformationTimelineProps {
   onClose?: () => void;
@@ -21,7 +31,7 @@ const TransformationTimeline: React.FC<TransformationTimelineProps> = ({ onClose
     learnings: [] //
   });
 
-  const aiService = useAIService(); //
+ //
 
   useEffect(() => { //
     // Load saved events from localStorage or API

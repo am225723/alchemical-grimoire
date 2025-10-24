@@ -2,7 +2,22 @@ import React, { useState, useEffect } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 // Removed unused Users, Download. Added Brain
 import { Network, Heart, AlertTriangle, TrendingUp, Eye, Target, Filter, RefreshCw, Brain } from 'lucide-react';
-import { useAIService, PatternAnalysis, RelationshipPattern } from '../../services/aiService';
+interface RelationshipPattern {
+  id: string;
+  name: string;
+  description: string;
+  frequency: number;
+  triggers: string[];
+  behaviors: string[];
+  outcomes: string[];
+  archetype?: string;
+}
+
+interface PatternAnalysis {
+  patterns: RelationshipPattern[];
+  overallInsights: string[];
+  recommendations: string[];
+}
 
 interface PatternNode {
   id: string;

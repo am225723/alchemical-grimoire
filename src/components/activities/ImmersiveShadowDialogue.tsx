@@ -1,7 +1,11 @@
 import React, { useState, useEffect } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { MessageCircle, Heart, Brain, Sparkles, Send, ArrowLeft } from 'lucide-react'; // Ensure lucide-react is installed
-import { useAIService, DialogueResponse } from '../../services/aiService';
+interface DialogueResponse {
+  response: string;
+  emotionalTone: 'supportive' | 'challenging' | 'neutral' | 'empathetic';
+  suggestedQuestions: string[];
+}
 
 interface DialogueMessage {
   id: string;
@@ -25,7 +29,6 @@ const ImmersiveShadowDialogue: React.FC<ImmersiveShadowDialogueProps> = ({
   const [isTyping, setIsTyping] = useState(false);
   const [emotionalState, setEmotionalState] = useState<string>('curious');
   const [suggestedQuestions, setSuggestedQuestions] = useState<string[]>([]);
-  const aiService = useAIService();
 
   useEffect(() => {
     // Initialize conversation with a shadow greeting

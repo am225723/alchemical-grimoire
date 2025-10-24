@@ -1,7 +1,16 @@
 import React, { useState } from 'react'; // Removed unused useEffect
 import { motion } from 'framer-motion'; // Removed unused AnimatePresence
 import { Heart, Brain, Users, Lightbulb, Target, Award, TrendingUp, Star, ChevronRight, Sparkles } from 'lucide-react'; // Ensure lucide-react is installed
-import { useAIService, AuthenticityScore } from '../../services/aiService';
+interface AuthenticityScore {
+  overall: number;
+  emotional: number;
+  behavioral: number;
+  cognitive: number;
+  social: number;
+  strengths: string[];
+  growthAreas: string[];
+  insights: string[];
+}
 
 interface Question {
   id: string;
@@ -22,7 +31,6 @@ const AuthenticSelfDiscovery: React.FC<AuthenticSelfDiscoveryProps> = ({ onClose
   const [responses, setResponses] = useState<Record<string, any>>({});
   const [authenticityScore, setAuthenticityScore] = useState<AuthenticityScore | null>(null);
   const [isAnalyzing, setIsAnalyzing] = useState(false);
-  const aiService = useAIService();
 
   const questions: Question[] = [
     {
