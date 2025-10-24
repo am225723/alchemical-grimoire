@@ -1,7 +1,7 @@
 import { useState } from 'react';
 import { BrowserRouter as Router, Routes, Route, Link } from 'react-router-dom';
 import { AppProvider } from './context/AppContext';
-import { BookOpen, Compass, Users, Wrench, Home, Sparkles, Menu, X } from 'lucide-react';
+import { BookOpen, Compass, Users, Wrench, Home, Sparkles, Menu, X, Users2 } from 'lucide-react';
 
 // Pages
 import HomePage from './pages/HomePage';
@@ -11,6 +11,7 @@ import ChapterDetail from './pages/ChapterDetail';
 import Toolkit from './pages/Toolkit';
 import Archetypes from './pages/Archetypes';
 import Community from './pages/Community';
+import InnerCouncil from './pages/InnerCouncil';
 
 // Enhanced Activities
 import ImmersiveShadowDialogue from './components/activities/ImmersiveShadowDialogue';
@@ -57,6 +58,10 @@ const TopNav = () => {
               <Link to="/archetypes" className="nav-link group">
                 <Compass className="w-5 h-5 group-hover:scale-110 transition-transform" />
                 <span>Archetypes</span>
+              </Link>
+              <Link to="/inner-council" className="nav-link group">
+                <Users2 className="w-5 h-5 group-hover:scale-110 transition-transform" />
+                <span>Inner Council</span>
               </Link>
               <Link to="/toolkit" className="nav-link group">
                 <Wrench className="w-5 h-5 group-hover:scale-110 transition-transform" />
@@ -117,6 +122,14 @@ const TopNav = () => {
                 <span>Archetypes</span>
               </Link>
               <Link 
+                to="/inner-council" 
+                className="text-slate-300 hover:text-ocean-400 transition-colors font-medium flex items-center space-x-2 p-3 rounded-lg hover:bg-slate-800/50"
+                onClick={() => setMobileMenuOpen(false)}
+              >
+                <Users2 className="w-5 h-5" />
+                <span>Inner Council</span>
+              </Link>
+              <Link 
                 to="/toolkit" 
                 className="text-slate-300 hover:text-ocean-400 transition-colors font-medium flex items-center space-x-2 p-3 rounded-lg hover:bg-slate-800/50"
                 onClick={() => setMobileMenuOpen(false)}
@@ -166,6 +179,7 @@ function App() {
               <Route path="/chapter/:id" element={<ChapterDetail />} />
               <Route path="/toolkit" element={<Toolkit />} />
               <Route path="/archetypes" element={<Archetypes />} />
+              <Route path="/inner-council" element={<InnerCouncil />} />
               <Route path="/community" element={<Community />} />
               <Route path="/settings" element={
                 <div className="min-h-screen flex items-center justify-center px-6">
