@@ -1,6 +1,12 @@
 import React, { useState } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
-import { Crown, Shield, Heart, Flame, Scale, Zap, X, Sparkles, ChevronRight } from 'lucide-react';
+import { Crown, Shield, Heart, Flame, Scale, Zap, X, Sparkles, ChevronRight, BookOpen, Activity } from 'lucide-react';
+import { TyrantActivity } from '../components/archetypes/TyrantActivity';
+import { VictimActivity } from '../components/archetypes/VictimActivity';
+import { MartyrActivity } from '../components/archetypes/MartyrActivity';
+import { SaboteurActivity } from '../components/archetypes/SaboteurActivity';
+import { JudgeActivity } from '../components/archetypes/JudgeActivity';
+import { RebelActivity } from '../components/archetypes/RebelActivity';
 
 interface Archetype {
   id: string;
@@ -117,6 +123,19 @@ const shadowArchetypes: Archetype[] = [
 const Archetypes: React.FC = () => {
   const [selectedArchetype, setSelectedArchetype] = useState<Archetype | null>(null);
   const [hoveredId, setHoveredId] = useState<string | null>(null);
+  const [activeTab, setActiveTab] = useState<'overview' | 'activity'>('overview');
+
+  const getActivityComponent = (archetypeId: string) => {
+    switch (archetypeId) {
+      case 'tyrant': return <TyrantActivity />;
+      case 'victim': return <VictimActivity />;
+      case 'martyr': return <MartyrActivity />;
+      case 'saboteur': return <SaboteurActivity />;
+      case 'judge': return <JudgeActivity />;
+      case 'rebel': return <RebelActivity />;
+      default: return null;
+    }
+  };
 
   return (
     <div className="min-h-screen px-6 py-12">
@@ -156,7 +175,10 @@ const Archetypes: React.FC = () => {
                 transition={{ delay: index * 0.1 }}
                 onMouseEnter={() => setHoveredId(archetype.id)}
                 onMouseLeave={() => setHoveredId(null)}
-                onClick={() => setSelectedArchetype(archetype)}
+                onClick={() => {
+                  setSelectedArchetype(archetype);
+                  setActiveTab('overview');
+                }}
                 className="group cursor-pointer"
               >
                 <div className={`relative glass-card p-8 h-full overflow-hidden transition-all duration-500 ${
@@ -297,58 +319,107 @@ const Archetypes: React.FC = () => {
                 </div>
               </div>
 
-              {/* Description */}
-              <p className="text-lg text-slate-300 leading-relaxed mb-8">
-                {selectedArchetype.description}
-              </p>
-
-              {/* Shadow & Light Sides */}
-              <div className="grid md:grid-cols-2 gap-6 mb-8">
-                <div className="glass-card p-6 bg-red-900/10 border-red-500/30">
-                  <h3 className="text-xl font-bold text-red-400 mb-3 flex items-center">
-                    <Flame className="w-5 h-5 mr-2" />
-                    Shadow Aspects
-                  </h3>
-                  <p className="text-slate-300 leading-relaxed">
-                    {selectedArchetype.shadow}
-                  </p>
-                </div>
-                
-                <div className="glass-card p-6 bg-green-900/10 border-green-500/30">
-                  <h3 className="text-xl font-bold text-green-400 mb-3 flex items-center">
-                    <Sparkles className="w-5 h-5 mr-2" />
-                    Integrated Light
-                  </h3>
-                  <p className="text-slate-300 leading-relaxed">
-                    {selectedArchetype.lightSide}
-                  </p>
-                </div>
-              </div>
-
-              {/* Integration Questions */}
-              <div className="glass-card p-6 bg-purple-900/10 border-purple-500/30">
-                <h3 className="text-xl font-bold text-purple-400 mb-4">
-                  Questions for Self-Reflection
-                </h3>
-                <ul className="space-y-3">
-                  {selectedArchetype.questions.map((question, index) => (
-                    <li key={index} className="flex items-start">
-                      <ChevronRight className="w-5 h-5 text-purple-400 mr-3 mt-0.5 flex-shrink-0" />
-                      <span className="text-slate-300">{question}</span>
-                    </li>
-                  ))}
-                </ul>
-              </div>
-
-              {/* Action Button */}
-              <div className="mt-8 text-center">
-                <button 
-                  onClick={() => setSelectedArchetype(null)}
-                  className={`btn-primary bg-gradient-to-r ${selectedArchetype.gradient}`}
+              {/* Tab Navigation */}
+              <div className="flex gap-2 mb-6 p-1 bg-white/5 rounded-lg">
+                <button
+                  onClick={() => setActiveTab('overview')}
+                  className={`flex-1 px-6 py-3 rounded-lg font-semibold flex items-center justify-center gap-2 transition-all ${
+                    activeTab === 'overview'
+                      ? `bg-gradient-to-r ${selectedArchetype.gradient} text-white shadow-lg`
+                      : 'text-gray-400 hover:text-white hover:bg-white/5'
+                  }`}
                 >
-                  Begin Integration Work
+                  <BookOpen className="w-5 h-5" />
+                  Overview
+                </button>
+                <button
+                  onClick={() => setActiveTab('activity')}
+                  className={`flex-1 px-6 py-3 rounded-lg font-semibold flex items-center justify-center gap-2 transition-all ${
+                    activeTab === 'activity'
+                      ? `bg-gradient-to-r ${selectedArchetype.gradient} text-white shadow-lg`
+                      : 'text-gray-400 hover:text-white hover:bg-white/5'
+                  }`}
+                >
+                  <Activity className="w-5 h-5" />
+                  Interactive Activity
                 </button>
               </div>
+
+              {/* Tab Content */}
+              <AnimatePresence mode="wait">
+                {activeTab === 'overview' ? (
+                  <motion.div
+                    key="overview"
+                    initial={{ opacity: 0, y: 20 }}
+                    animate={{ opacity: 1, y: 0 }}
+                    exit={{ opacity: 0, y: -20 }}
+                    transition={{ duration: 0.2 }}
+                  >
+                    {/* Description */}
+                    <p className="text-lg text-slate-300 leading-relaxed mb-8">
+                      {selectedArchetype.description}
+                    </p>
+
+                    {/* Shadow & Light Sides */}
+                    <div className="grid md:grid-cols-2 gap-6 mb-8">
+                      <div className="glass-card p-6 bg-red-900/10 border-red-500/30">
+                        <h3 className="text-xl font-bold text-red-400 mb-3 flex items-center">
+                          <Flame className="w-5 h-5 mr-2" />
+                          Shadow Aspects
+                        </h3>
+                        <p className="text-slate-300 leading-relaxed">
+                          {selectedArchetype.shadow}
+                        </p>
+                      </div>
+                      
+                      <div className="glass-card p-6 bg-green-900/10 border-green-500/30">
+                        <h3 className="text-xl font-bold text-green-400 mb-3 flex items-center">
+                          <Sparkles className="w-5 h-5 mr-2" />
+                          Integrated Light
+                        </h3>
+                        <p className="text-slate-300 leading-relaxed">
+                          {selectedArchetype.lightSide}
+                        </p>
+                      </div>
+                    </div>
+
+                    {/* Integration Questions */}
+                    <div className="glass-card p-6 bg-purple-900/10 border-purple-500/30">
+                      <h3 className="text-xl font-bold text-purple-400 mb-4">
+                        Questions for Self-Reflection
+                      </h3>
+                      <ul className="space-y-3">
+                        {selectedArchetype.questions.map((question, index) => (
+                          <li key={index} className="flex items-start">
+                            <ChevronRight className="w-5 h-5 text-purple-400 mr-3 mt-0.5 flex-shrink-0" />
+                            <span className="text-slate-300">{question}</span>
+                          </li>
+                        ))}
+                      </ul>
+                    </div>
+
+                    {/* Action Button */}
+                    <div className="mt-8 text-center">
+                      <button 
+                        onClick={() => setActiveTab('activity')}
+                        className={`btn-primary bg-gradient-to-r ${selectedArchetype.gradient}`}
+                      >
+                        Begin Interactive Activity
+                      </button>
+                    </div>
+                  </motion.div>
+                ) : (
+                  <motion.div
+                    key="activity"
+                    initial={{ opacity: 0, y: 20 }}
+                    animate={{ opacity: 1, y: 0 }}
+                    exit={{ opacity: 0, y: -20 }}
+                    transition={{ duration: 0.2 }}
+                  >
+                    {getActivityComponent(selectedArchetype.id)}
+                  </motion.div>
+                )}
+              </AnimatePresence>
             </motion.div>
           </motion.div>
         )}
