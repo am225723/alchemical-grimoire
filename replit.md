@@ -43,6 +43,11 @@ These activities are integrated into archetype modals and persist data locally.
 **Inner Council Dashboard:**
 A dedicated page (`/inner-council`) provides a weekly check-in system with archetype volume sliders, dynamic insights, archetype recommendations, and integration tool suggestions.
 
+**Lesson Plan Implementation (October 2025):**
+Based on comprehensive curriculum PDF, implemented Module 1 and Module 8 features:
+-   **Trigger Identifier** (`/trigger-identifier`): A diagnostic quiz with 30 triggers (5 per archetype) rated on a 3-point scale (0=doesn't bother, 1=annoying, 2=deeply triggering). Calculates which archetypes are most active and provides personalized shadow profile results with accurate percentage scoring.
+-   **Integration Log** (`/integration-log`): Central dashboard displaying all shadow work insights from every tool (trigger diagnostics, control-fear matrices, reframes, need sorting, letters, judgments, council check-ins). Includes filtering by archetype, data export (JSON), and timeline view of all shadow work activities.
+
 ### System Design Choices
 The project prioritizes a client-side architecture where all user data is stored locally in the browser's localStorage, ensuring privacy and direct user control over their data. Environment variables (`VITE_OPENAI_API_KEY`, `VITE_PERPLEXITY_API_KEY`) are used for API keys, adhering to a BYOK model.
 

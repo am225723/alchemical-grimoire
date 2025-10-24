@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
-import { AlertCircle, ChevronRight, ChevronLeft, BarChart3, X } from 'lucide-react';
+import { AlertCircle, ChevronLeft, BarChart3, X } from 'lucide-react';
 
 interface Trigger {
   id: string;
@@ -23,42 +23,47 @@ interface ArchetypeScores {
 }
 
 const triggers: Trigger[] = [
-  // Tyrant triggers (control, perfectionism)
+  // Tyrant triggers (control, perfectionism) - 5 triggers
   { id: '1', text: "When someone is lazy and doesn't pull their weight", archetype: 'tyrant' },
-  { id: '2', text: "When someone is a 'control freak' and tries to micromanage me", archetype: 'rebel' },
-  { id: '3', text: "When things don't go according to plan", archetype: 'tyrant' },
-  { id: '4', text: "When someone does something inefficiently or 'the wrong way'", archetype: 'tyrant' },
+  { id: '2', text: "When things don't go according to plan", archetype: 'tyrant' },
+  { id: '3', text: "When someone does something inefficiently or 'the wrong way'", archetype: 'tyrant' },
+  { id: '4', text: "When someone breaks the rules just for the sake of it", archetype: 'tyrant' },
+  { id: '5', text: "When people are incompetent or can't do things correctly", archetype: 'tyrant' },
   
-  // Victim triggers (helplessness, blame)
-  { id: '5', text: "When someone plays the 'victim' and won't take responsibility", archetype: 'judge' },
+  // Victim triggers (helplessness, blame) - 5 triggers
   { id: '6', text: "When I feel powerless to change my circumstances", archetype: 'victim' },
   { id: '7', text: "When others seem to have it easier than me", archetype: 'victim' },
   { id: '8', text: "When people don't understand how hard things are for me", archetype: 'victim' },
+  { id: '9', text: "When I feel like life is unfair to me", archetype: 'victim' },
+  { id: '10', text: "When circumstances beyond my control ruin my plans", archetype: 'victim' },
   
-  // Martyr triggers (self-sacrifice, resentment)
-  { id: '9', text: "When someone constantly sacrifices their needs and then complains about it", archetype: 'judge' },
-  { id: '10', text: "When my efforts go unnoticed or unappreciated", archetype: 'martyr' },
-  { id: '11', text: "When others ask for help but don't reciprocate", archetype: 'martyr' },
-  { id: '12', text: "When someone sets boundaries with me", archetype: 'martyr' },
+  // Martyr triggers (self-sacrifice, resentment) - 5 triggers
+  { id: '11', text: "When my efforts go unnoticed or unappreciated", archetype: 'martyr' },
+  { id: '12', text: "When others ask for help but don't reciprocate", archetype: 'martyr' },
+  { id: '13', text: "When someone sets boundaries with me", archetype: 'martyr' },
+  { id: '14', text: "When I feel taken advantage of after helping others", archetype: 'martyr' },
+  { id: '15', text: "When others don't acknowledge my sacrifices", archetype: 'martyr' },
   
-  // Saboteur triggers (self-undermining, fear of success)
-  { id: '13', text: "When I'm close to achieving a goal and suddenly lose motivation", archetype: 'saboteur' },
-  { id: '14', text: "When someone procrastinates on important things", archetype: 'saboteur' },
-  { id: '15', text: "When I see someone succeeding where I've failed", archetype: 'judge' },
-  { id: '16', text: "When perfectionism prevents me from finishing projects", archetype: 'saboteur' },
+  // Saboteur triggers (self-undermining, fear of success) - 5 triggers
+  { id: '16', text: "When I'm close to achieving a goal and suddenly lose motivation", archetype: 'saboteur' },
+  { id: '17', text: "When someone procrastinates on important things", archetype: 'saboteur' },
+  { id: '18', text: "When perfectionism prevents me from finishing projects", archetype: 'saboteur' },
+  { id: '19', text: "When I sabotage my own success or opportunities", archetype: 'saboteur' },
+  { id: '20', text: "When I find myself making excuses for not following through", archetype: 'saboteur' },
   
-  // Judge triggers (criticism, perfectionism)
-  { id: '17', text: "When someone is highly critical or judgmental of others", archetype: 'judge' },
-  { id: '18', text: "When people don't meet my standards", archetype: 'judge' },
-  { id: '19', text: "When I make a mistake or look foolish", archetype: 'judge' },
-  { id: '20', text: "When someone is arrogant or acts superior", archetype: 'judge' },
+  // Judge triggers (criticism, perfectionism) - 5 triggers
+  { id: '21', text: "When someone is highly critical or judgmental of others", archetype: 'judge' },
+  { id: '22', text: "When people don't meet my standards", archetype: 'judge' },
+  { id: '23', text: "When I make a mistake or look foolish", archetype: 'judge' },
+  { id: '24', text: "When someone is arrogant or acts superior", archetype: 'judge' },
+  { id: '25', text: "When people are sloppy, careless, or mediocre", archetype: 'judge' },
   
-  // Rebel triggers (authority, control)
-  { id: '21', text: "When someone breaks the rules just for the sake of it", archetype: 'tyrant' },
-  { id: '22', text: "When authority figures tell me what to do", archetype: 'rebel' },
-  { id: '23', text: "When I feel pressured to conform or fit in", archetype: 'rebel' },
-  { id: '24', text: "When someone tries to control my choices or freedom", archetype: 'rebel' },
-  { id: '25', text: "When I'm expected to follow rules I don't agree with", archetype: 'rebel' }
+  // Rebel triggers (authority, control) - 5 triggers
+  { id: '26', text: "When authority figures tell me what to do", archetype: 'rebel' },
+  { id: '27', text: "When I feel pressured to conform or fit in", archetype: 'rebel' },
+  { id: '28', text: "When someone tries to control my choices or freedom", archetype: 'rebel' },
+  { id: '29', text: "When I'm expected to follow rules I don't agree with", archetype: 'rebel' },
+  { id: '30', text: "When someone is a 'control freak' and tries to micromanage me", archetype: 'rebel' }
 ];
 
 const TriggerIdentifier: React.FC<TriggerIdentifierProps> = ({ onClose, onComplete }) => {
@@ -311,7 +316,7 @@ const TriggerIdentifier: React.FC<TriggerIdentifierProps> = ({ onClose, onComple
             )}
           </div>
           <p className="text-gray-300 text-sm mb-4">
-            A trigger is a "shadow-sighting" - a compass pointing to an unhealed part of you. Rate how strongly each situation affects you.
+            A trigger is a "shadow-sighting" - a compass pointing to an unhealed part of you. Rate how strongly each of the 30 situations affects you (5 per archetype).
           </p>
           
           {/* Progress Bar */}

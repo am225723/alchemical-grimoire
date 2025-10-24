@@ -13,6 +13,7 @@ import Archetypes from './pages/Archetypes';
 import Community from './pages/Community';
 import InnerCouncil from './pages/InnerCouncil';
 import AITools from './pages/AITools';
+import IntegrationLog from './pages/IntegrationLog';
 
 // Enhanced Activities
 import ImmersiveShadowDialogue from './components/activities/ImmersiveShadowDialogue';
@@ -23,6 +24,9 @@ import TransformationTimeline from './components/activities/TransformationTimeli
 // AI-Powered Features
 import AIPatternRecognition from './components/features/AIPatternRecognition';
 import ImmersiveShadowIntegration from './components/features/ImmersiveShadowIntegration';
+
+// Module 1 - Shadow Diagnostic
+import TriggerIdentifier from './components/TriggerIdentifier';
 
 const TopNav = () => {
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
@@ -194,6 +198,7 @@ function App() {
               <Route path="/archetypes" element={<Archetypes />} />
               <Route path="/inner-council" element={<InnerCouncil />} />
               <Route path="/ai-tools" element={<AITools />} />
+              <Route path="/integration-log" element={<IntegrationLog />} />
               <Route path="/community" element={<Community />} />
               <Route path="/settings" element={
                 <div className="min-h-screen flex items-center justify-center px-6">
@@ -203,6 +208,10 @@ function App() {
                   </div>
                 </div>
               } />
+
+              {/* Module 1 - Shadow Diagnostic */}
+              <Route path="/trigger-identifier" element={<TriggerIdentifier />} />
+              <Route path="/shadow-diagnostic" element={<TriggerIdentifier />} />
 
               {/* Enhanced Activities */}
               <Route path="/activities/dialogue" element={<ImmersiveShadowDialogue />} />
