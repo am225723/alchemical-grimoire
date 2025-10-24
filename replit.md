@@ -145,6 +145,23 @@ All TypeScript compilation errors blocking deployment have been fixed:
 **Build Status**: ✅ Successfully compiling with `npm run build`
 **Deployment**: Ready for production deployment
 
+### Deployment Port Configuration Fix (October 24, 2025 - Latest)
+
+**Port Mismatch Resolved**
+Fixed deployment configuration to ensure Vite preview runs on the correct port:
+
+1. **Deployment Configuration**
+   - Updated deployment run command to explicitly use port 5000
+   - Command: `npx vite preview --host 0.0.0.0 --port 5000`
+   - Matches Replit's expected port mapping (localPort 5000 → externalPort 80)
+
+2. **Package.json Update**
+   - Updated preview script to match deployment configuration
+   - Ensures local preview and production deployment use the same port
+   - Command: `vite preview --host 0.0.0.0 --port 5000`
+
+**Deployment Status**: ✅ Port 5000 configured correctly, ready for autoscale deployment
+
 ### Major UI Enhancement (October 23, 2025)
 
 **Header Overlap Fix**
