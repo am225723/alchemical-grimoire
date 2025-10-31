@@ -2,10 +2,11 @@ import React, { useState } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { Crown, Shield, Heart, Flame, Scale, Zap, X, Sparkles, ChevronRight, BookOpen, Activity } from 'lucide-react';
 import { TyrantActivity } from '../components/archetypes/TyrantActivity';
-import { VictimActivity } from '../components/archetypes/VictimActivity';
+// AI-Enhanced components imported
+import { VictimActivityAI } from '../components/archetypes/VictimActivityAI';
 import { MartyrActivity } from '../components/archetypes/MartyrActivity';
-import { SaboteurActivity } from '../components/archetypes/SaboteurActivity';
-import { JudgeActivity } from '../components/archetypes/JudgeActivity';
+import { SaboteurActivityAI } from '../components/archetypes/SaboteurActivityAI';
+import { JudgeActivityAI } from '../components/archetypes/JudgeActivityAI';
 import { RebelActivity } from '../components/archetypes/RebelActivity';
 
 interface Archetype {
@@ -22,6 +23,7 @@ interface Archetype {
 }
 
 const shadowArchetypes: Archetype[] = [
+  // ... (archetype data remains the same)
   {
     id: 'tyrant',
     name: 'The Tyrant',
@@ -128,10 +130,12 @@ const Archetypes: React.FC = () => {
   const getActivityComponent = (archetypeId: string) => {
     switch (archetypeId) {
       case 'tyrant': return <TyrantActivity />;
-      case 'victim': return <VictimActivity />;
+      // --- UPDATED COMPONENTS ---
+      case 'victim': return <VictimActivityAI />;
       case 'martyr': return <MartyrActivity />;
-      case 'saboteur': return <SaboteurActivity />;
-      case 'judge': return <JudgeActivity />;
+      case 'saboteur': return <SaboteurActivityAI />;
+      case 'judge': return <JudgeActivityAI />;
+      // --- END UPDATED COMPONENTS ---
       case 'rebel': return <RebelActivity />;
       default: return null;
     }
